@@ -3,7 +3,7 @@ main = "worker/index.ts"
 compatibility_date = "2026-03-31"
 
 [build]
-command = "npm run build"
+command = "npm run build:worker-assets"
 
 [assets]
 directory = "./dist"

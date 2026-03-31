@@ -94,3 +94,4 @@ wrangler deploy --env staging
 - Worker entrypoint hanya memakai Web Standard APIs (`fetch`, `Request`, `Response`, `URL`).
 - Tidak menggunakan `fs`, `path`, `http`, `net`, atau API Node lain.
 - Tidak mengubah kontrak payload existing frontend ke backend.
+- Untuk mode Workers, **jangan gunakan `public/_redirects`** (khusus Pages) karena dapat memicu validasi error `10021` (infinite loop).
