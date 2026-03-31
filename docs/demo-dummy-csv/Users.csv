@@ -1,0 +1,11 @@
+user_id,nama,email,role,status,last_login,created_at,updated_at
+usr_0001,Nabila Rahmawati,owner@zhostbidan.demo,pemilik,aktif,2026-03-31T08:10:00Z,2026-01-01T08:00:00Z,2026-03-31T08:10:00Z
+usr_0002,Dian Puspitasari,admin@zhostbidan.demo,admin_klinik,aktif,2026-03-31T08:30:00Z,2026-01-02T08:00:00Z,2026-03-31T08:30:00Z
+usr_0003,Salsa Maulida,cs1@zhostbidan.demo,cs,aktif,2026-03-31T07:55:00Z,2026-01-05T08:00:00Z,2026-03-31T07:55:00Z
+usr_0004,Rani Lestari,cs2@zhostbidan.demo,cs,aktif,2026-03-30T15:11:00Z,2026-01-11T08:00:00Z,2026-03-30T15:11:00Z
+usr_0005,Fajar Nugroho,finance1@zhostbidan.demo,keuangan,aktif,2026-03-31T09:20:00Z,2026-01-03T08:00:00Z,2026-03-31T09:20:00Z
+usr_0006,Fina Azzahra,finance2@zhostbidan.demo,keuangan,aktif,2026-03-29T10:05:00Z,2026-01-13T08:00:00Z,2026-03-29T10:05:00Z
+usr_0007,dr. Andi Pratama,medis1@zhostbidan.demo,medis,aktif,2026-03-31T12:02:00Z,2026-01-04T08:00:00Z,2026-03-31T12:02:00Z
+usr_0008,Bdn. Ayu Kurniasih,medis2@zhostbidan.demo,medis,aktif,2026-03-31T11:18:00Z,2026-01-06T08:00:00Z,2026-03-31T11:18:00Z
+usr_0009,Nur Komariah,hrd@zhostbidan.demo,admin_klinik,aktif,2026-03-28T16:43:00Z,2026-01-08T08:00:00Z,2026-03-28T16:43:00Z
+usr_0010,Akun Lama Nonaktif,old.staff@zhostbidan.demo,cs,nonaktif,2026-02-20T10:00:00Z,2025-10-01T08:00:00Z,2026-02-20T10:00:00Z

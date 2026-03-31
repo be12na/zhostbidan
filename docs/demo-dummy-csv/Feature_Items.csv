@@ -1,0 +1,7 @@
+id,icon,title,description,sort_order,is_active
+fit_001,users,Data Pasien Terpusat,Riwayat pasien tersimpan rapi dan mudah dicari.,1,true
+fit_002,list-checks,Antrian Real-time,Pantau status Menunggu Diperiksa Selesai secara langsung.,2,true
+fit_003,stethoscope,Pemeriksaan Terdokumentasi,Diagnosa analisa tindakan dan resep tersimpan konsisten.,3,true
+fit_004,bell-ring,Reminder Follow Up,Jadwal kontrol pasien otomatis masuk ke daftar follow up.,4,true
+fit_005,wallet,Keuangan Klinik,Pemasukan dan pengeluaran harian mudah dipantau.,5,true
+fit_006,file-text,Laporan Siap Export,Laporan layanan klinik siap untuk audit dan presentasi.,6,true

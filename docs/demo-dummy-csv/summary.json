@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-04-01T08:00:00Z",
+  "total_sheets": 23,
+  "row_counts": {
+    "Users": 10,
+    "Pasien": 24,
+    "Antrian": 42,
+    "Pemeriksaan": 21,
+    "Reminder": 7,
+    "Keuangan": 50,
+    "Karyawan": 10,
+    "Absensi": 81,
+    "Laporan_ANC": 3,
+    "Laporan_Partus": 2,
+    "Laporan_Bidan": 2,
+    "Laporan_Dokter": 3,
+    "Laporan_Kecantikan": 3,
+    "Laporan_SHK": 2,
+    "Laporan_Imunisasi": 2,
+    "Laporan_KB": 3,
+    "Site_Settings": 6,
+    "Hero_Content": 1,
+    "Feature_Items": 6,
+    "Pricing_Plans": 3,
+    "Audit_Log": 10,
+    "Master_Layanan": 8,
+    "Master_Kategori_Keuangan": 10
+  }
+}

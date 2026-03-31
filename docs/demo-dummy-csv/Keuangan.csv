@@ -1,0 +1,51 @@
+transaksi_id,tanggal,jenis,kategori,nominal,keterangan,pasien_id,antrian_id,created_by,created_at,updated_at
+trx_0001,2026-03-01,Masuk,Pasien Periksa,275000,Pendapatan layanan ANC,pas_0001,antr_0001,finance1@zhostbidan.demo,2026-03-01T18:00:00Z,2026-03-01T18:00:00Z
+trx_0002,2026-03-02,Masuk,Pasien Periksa,180000,Pendapatan layanan Pemeriksaan Umum,pas_0002,antr_0002,finance1@zhostbidan.demo,2026-03-02T18:00:00Z,2026-03-02T18:00:00Z
+trx_0003,2026-03-03,Masuk,Pasien Periksa,220000,Pendapatan layanan Imunisasi,pas_0003,antr_0003,finance1@zhostbidan.demo,2026-03-03T18:00:00Z,2026-03-03T18:00:00Z
+trx_0004,2026-03-05,Masuk,Pasien Periksa,320000,Pendapatan layanan USG,pas_0005,antr_0005,finance1@zhostbidan.demo,2026-03-05T18:00:00Z,2026-03-05T18:00:00Z
+trx_0005,2026-03-06,Masuk,Pasien Periksa,210000,Pendapatan layanan Konsultasi Laktasi,pas_0006,antr_0006,finance1@zhostbidan.demo,2026-03-06T18:00:00Z,2026-03-06T18:00:00Z
+trx_0006,2026-03-07,Masuk,Pasien Periksa,275000,Pendapatan layanan ANC,pas_0007,antr_0007,finance1@zhostbidan.demo,2026-03-07T18:00:00Z,2026-03-07T18:00:00Z
+trx_0007,2026-03-09,Masuk,Pasien Periksa,220000,Pendapatan layanan Imunisasi,pas_0009,antr_0009,finance1@zhostbidan.demo,2026-03-09T18:00:00Z,2026-03-09T18:00:00Z
+trx_0008,2026-03-10,Masuk,Pasien Periksa,165000,Pendapatan layanan KB,pas_0010,antr_0010,finance1@zhostbidan.demo,2026-03-10T18:00:00Z,2026-03-10T18:00:00Z
+trx_0009,2026-03-11,Masuk,Pasien Periksa,320000,Pendapatan layanan USG,pas_0011,antr_0011,finance1@zhostbidan.demo,2026-03-11T18:00:00Z,2026-03-11T18:00:00Z
+trx_0010,2026-03-13,Masuk,Pasien Periksa,275000,Pendapatan layanan ANC,pas_0013,antr_0013,finance1@zhostbidan.demo,2026-03-13T18:00:00Z,2026-03-13T18:00:00Z
+trx_0011,2026-03-14,Masuk,Pasien Periksa,180000,Pendapatan layanan Pemeriksaan Umum,pas_0014,antr_0014,finance1@zhostbidan.demo,2026-03-14T18:00:00Z,2026-03-14T18:00:00Z
+trx_0012,2026-03-15,Masuk,Pasien Periksa,220000,Pendapatan layanan Imunisasi,pas_0015,antr_0015,finance1@zhostbidan.demo,2026-03-15T18:00:00Z,2026-03-15T18:00:00Z
+trx_0013,2026-03-17,Masuk,Pasien Periksa,320000,Pendapatan layanan USG,pas_0017,antr_0017,finance1@zhostbidan.demo,2026-03-17T18:00:00Z,2026-03-17T18:00:00Z
+trx_0014,2026-03-18,Masuk,Pasien Periksa,210000,Pendapatan layanan Konsultasi Laktasi,pas_0018,antr_0018,finance1@zhostbidan.demo,2026-03-18T18:00:00Z,2026-03-18T18:00:00Z
+trx_0015,2026-03-19,Masuk,Pasien Periksa,275000,Pendapatan layanan ANC,pas_0019,antr_0019,finance1@zhostbidan.demo,2026-03-19T18:00:00Z,2026-03-19T18:00:00Z
+trx_0016,2026-03-21,Masuk,Pasien Periksa,220000,Pendapatan layanan Imunisasi,pas_0021,antr_0021,finance1@zhostbidan.demo,2026-03-21T18:00:00Z,2026-03-21T18:00:00Z
+trx_0017,2026-03-22,Masuk,Pasien Periksa,165000,Pendapatan layanan KB,pas_0022,antr_0022,finance1@zhostbidan.demo,2026-03-22T18:00:00Z,2026-03-22T18:00:00Z
+trx_0018,2026-03-23,Masuk,Pasien Periksa,320000,Pendapatan layanan USG,pas_0023,antr_0023,finance1@zhostbidan.demo,2026-03-23T18:00:00Z,2026-03-23T18:00:00Z
+trx_0019,2026-03-25,Masuk,Pasien Periksa,275000,Pendapatan layanan ANC,pas_0001,antr_0025,finance1@zhostbidan.demo,2026-03-25T18:00:00Z,2026-03-25T18:00:00Z
+trx_0020,2026-03-26,Masuk,Pasien Periksa,180000,Pendapatan layanan Pemeriksaan Umum,pas_0002,antr_0026,finance1@zhostbidan.demo,2026-03-26T18:00:00Z,2026-03-26T18:00:00Z
+trx_0021,2026-03-27,Masuk,Pasien Periksa,220000,Pendapatan layanan Imunisasi,pas_0003,antr_0027,finance1@zhostbidan.demo,2026-03-27T18:00:00Z,2026-03-27T18:00:00Z
+trx_0022,2026-03-29,Masuk,Pasien Periksa,320000,Pendapatan layanan USG,pas_0005,antr_0029,finance1@zhostbidan.demo,2026-03-29T18:00:00Z,2026-03-29T18:00:00Z
+trx_0023,2026-03-30,Masuk,Pasien Periksa,210000,Pendapatan layanan Konsultasi Laktasi,pas_0006,antr_0030,finance1@zhostbidan.demo,2026-03-30T18:00:00Z,2026-03-30T18:00:00Z
+trx_0024,2026-03-31,Masuk,Pasien Periksa,275000,Pendapatan layanan ANC,pas_0007,antr_0031,finance1@zhostbidan.demo,2026-03-31T18:00:00Z,2026-03-31T18:00:00Z
+trx_0025,2026-03-02,Masuk,Pasien Periksa,220000,Pendapatan layanan Imunisasi,pas_0009,antr_0033,finance1@zhostbidan.demo,2026-03-02T18:00:00Z,2026-03-02T18:00:00Z
+trx_0026,2026-03-03,Masuk,Pasien Periksa,165000,Pendapatan layanan KB,pas_0010,antr_0034,finance1@zhostbidan.demo,2026-03-03T18:00:00Z,2026-03-03T18:00:00Z
+trx_0027,2026-03-04,Masuk,Pasien Periksa,320000,Pendapatan layanan USG,pas_0011,antr_0035,finance1@zhostbidan.demo,2026-03-04T18:00:00Z,2026-03-04T18:00:00Z
+trx_0028,2026-03-06,Masuk,Pasien Periksa,275000,Pendapatan layanan ANC,pas_0013,antr_0037,finance1@zhostbidan.demo,2026-03-06T18:00:00Z,2026-03-06T18:00:00Z
+trx_0029,2026-03-07,Masuk,Pasien Periksa,180000,Pendapatan layanan Pemeriksaan Umum,pas_0014,antr_0038,finance1@zhostbidan.demo,2026-03-07T18:00:00Z,2026-03-07T18:00:00Z
+trx_0030,2026-03-08,Masuk,Pasien Periksa,220000,Pendapatan layanan Imunisasi,pas_0015,antr_0039,finance1@zhostbidan.demo,2026-03-08T18:00:00Z,2026-03-08T18:00:00Z
+trx_0031,2026-03-10,Masuk,Pasien Periksa,320000,Pendapatan layanan USG,pas_0017,antr_0041,finance1@zhostbidan.demo,2026-03-10T18:00:00Z,2026-03-10T18:00:00Z
+trx_0032,2026-03-11,Masuk,Pasien Periksa,210000,Pendapatan layanan Konsultasi Laktasi,pas_0018,antr_0042,finance1@zhostbidan.demo,2026-03-11T18:00:00Z,2026-03-11T18:00:00Z
+trx_0033,2026-03-01,Keluar,Beli Obat / Farmasi,90000,Restock obat batuk,,,finance2@zhostbidan.demo,2026-03-01T19:00:00Z,2026-03-01T19:00:00Z
+trx_0034,2026-03-02,Keluar,Alat Medis,135000,Pembelian sarung tangan,,,finance2@zhostbidan.demo,2026-03-02T19:00:00Z,2026-03-02T19:00:00Z
+trx_0035,2026-03-03,Keluar,Perbaikan Klinik,180000,Service AC ruang periksa,,,finance2@zhostbidan.demo,2026-03-03T19:00:00Z,2026-03-03T19:00:00Z
+trx_0036,2026-03-04,Keluar,Gaji & Operasional,225000,Honor tenaga medis,,,finance2@zhostbidan.demo,2026-03-04T19:00:00Z,2026-03-04T19:00:00Z
+trx_0037,2026-03-05,Keluar,Lain-lain,270000,Biaya internet dan listrik,,,finance2@zhostbidan.demo,2026-03-05T19:00:00Z,2026-03-05T19:00:00Z
+trx_0038,2026-03-06,Keluar,Beli Obat / Farmasi,315000,Restock obat batuk,,,finance2@zhostbidan.demo,2026-03-06T19:00:00Z,2026-03-06T19:00:00Z
+trx_0039,2026-03-07,Keluar,Alat Medis,90000,Pembelian sarung tangan,,,finance2@zhostbidan.demo,2026-03-07T19:00:00Z,2026-03-07T19:00:00Z
+trx_0040,2026-03-08,Keluar,Perbaikan Klinik,135000,Service AC ruang periksa,,,finance2@zhostbidan.demo,2026-03-08T19:00:00Z,2026-03-08T19:00:00Z
+trx_0041,2026-03-09,Keluar,Gaji & Operasional,180000,Honor tenaga medis,,,finance2@zhostbidan.demo,2026-03-09T19:00:00Z,2026-03-09T19:00:00Z
+trx_0042,2026-03-10,Keluar,Lain-lain,225000,Biaya internet dan listrik,,,finance2@zhostbidan.demo,2026-03-10T19:00:00Z,2026-03-10T19:00:00Z
+trx_0043,2026-03-11,Keluar,Beli Obat / Farmasi,270000,Restock obat batuk,,,finance2@zhostbidan.demo,2026-03-11T19:00:00Z,2026-03-11T19:00:00Z
+trx_0044,2026-03-12,Keluar,Alat Medis,315000,Pembelian sarung tangan,,,finance2@zhostbidan.demo,2026-03-12T19:00:00Z,2026-03-12T19:00:00Z
+trx_0045,2026-03-13,Keluar,Perbaikan Klinik,90000,Service AC ruang periksa,,,finance2@zhostbidan.demo,2026-03-13T19:00:00Z,2026-03-13T19:00:00Z
+trx_0046,2026-03-14,Keluar,Gaji & Operasional,135000,Honor tenaga medis,,,finance2@zhostbidan.demo,2026-03-14T19:00:00Z,2026-03-14T19:00:00Z
+trx_0047,2026-03-15,Keluar,Lain-lain,180000,Biaya internet dan listrik,,,finance2@zhostbidan.demo,2026-03-15T19:00:00Z,2026-03-15T19:00:00Z
+trx_0048,2026-03-16,Keluar,Beli Obat / Farmasi,225000,Restock obat batuk,,,finance2@zhostbidan.demo,2026-03-16T19:00:00Z,2026-03-16T19:00:00Z
+trx_0049,2026-03-17,Keluar,Alat Medis,270000,Pembelian sarung tangan,,,finance2@zhostbidan.demo,2026-03-17T19:00:00Z,2026-03-17T19:00:00Z
+trx_0050,2026-03-18,Keluar,Perbaikan Klinik,315000,Service AC ruang periksa,,,finance2@zhostbidan.demo,2026-03-18T19:00:00Z,2026-03-18T19:00:00Z

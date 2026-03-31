@@ -1,0 +1,4 @@
+id,plan_name,billing_type,price,subtitle,features,cta_text,highlight_flag,is_active,sort_order
+prc_001,Starter,Bulanan,299000,Untuk klinik baru berkembang,Antrian;Pasien;Reminder,Pilih Starter,false,true,1
+prc_002,Growth,Bulanan,599000,Untuk klinik dengan tim operasional aktif,Semua Starter;Keuangan;HRD;Laporan,Pilih Growth,true,true,2
+prc_003,Enterprise,Tahunan,0,Untuk multi cabang,Semua fitur;Support prioritas;Kustom integrasi,Konsultasi Sekarang,false,true,3

@@ -1,0 +1,4 @@
+id,tanggal,pasien,metode,jml_anak,usia_anak,anemia,lila,kronis,ims,keterangan,created_at
+kb_0001,2026-03-03,Maya Oktaviani,IUD,2,5,Tidak,24,Tidak,Tidak,Kontrol 1 bulan,2026-03-03T09:20:00Z
+kb_0002,2026-03-17,Farah Nabila,Suntik 3 Bulan,1,2,Tidak,23,Tidak,Tidak,Edukasi efek samping,2026-03-17T15:40:00Z
+kb_0003,2026-03-27,Intan Permata,Implant,3,7,Tidak,25,Tidak,Tidak,Kontrol 6 bulan,2026-03-27T11:12:00Z

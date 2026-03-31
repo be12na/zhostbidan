@@ -1,0 +1,22 @@
+pemeriksaan_id,tanggal,pasien_id,antrian_id,dokter_id,tenaga_medis,diagnosa,analisa,tindakan,catatan,tgl_kembali,keperluan_kembali,created_at
+per_0001,2026-03-02,pas_0002,antr_0002,dok_andi,dr. Andi Pratama,ISPA,Tanda vital stabil,Nebulizer,Pulang dengan edukasi,2026-04-03,Kontrol ANC,2026-03-02T10:40:00Z
+per_0002,2026-03-03,pas_0003,antr_0003,bdn_ayu,Bdn. Ayu Kurniasih,Gastritis,Perlu hidrasi,PPI oral,Kontrol 7 hari,,,2026-03-03T11:40:00Z
+per_0003,2026-03-06,pas_0006,antr_0006,dok_andi,dr. Andi Pratama,Anemia ringan,Perlu suplemen Fe,Tablet Fe,Pantau asupan,,,2026-03-06T12:40:00Z
+per_0004,2026-03-07,pas_0007,antr_0007,bdn_ayu,Bdn. Ayu Kurniasih,Kontrol kehamilan,Janin aktif,USG ANC,Lanjut kontrol rutin,2026-04-06,Kontrol ANC,2026-03-07T13:40:00Z
+per_0005,2026-03-10,pas_0010,antr_0010,dok_andi,dr. Andi Pratama,Demam tifoid observasi,Perlu observasi 3 hari,Antipiretik,Kembali bila demam tinggi,,,2026-03-10T14:40:00Z
+per_0006,2026-03-11,pas_0011,antr_0011,bdn_ayu,Bdn. Ayu Kurniasih,ISPA,Tanda vital stabil,Nebulizer,Pulang dengan edukasi,,,2026-03-11T15:40:00Z
+per_0007,2026-03-14,pas_0014,antr_0014,dok_andi,dr. Andi Pratama,Gastritis,Perlu hidrasi,PPI oral,Kontrol 7 hari,2026-04-09,Kontrol ANC,2026-03-14T10:40:00Z
+per_0008,2026-03-15,pas_0015,antr_0015,bdn_ayu,Bdn. Ayu Kurniasih,Anemia ringan,Perlu suplemen Fe,Tablet Fe,Pantau asupan,,,2026-03-15T11:40:00Z
+per_0009,2026-03-18,pas_0018,antr_0018,dok_andi,dr. Andi Pratama,Kontrol kehamilan,Janin aktif,USG ANC,Lanjut kontrol rutin,,,2026-03-18T12:40:00Z
+per_0010,2026-03-19,pas_0019,antr_0019,bdn_ayu,Bdn. Ayu Kurniasih,Demam tifoid observasi,Perlu observasi 3 hari,Antipiretik,Kembali bila demam tinggi,2026-04-12,Kontrol ANC,2026-03-19T13:40:00Z
+per_0011,2026-03-22,pas_0022,antr_0022,dok_andi,dr. Andi Pratama,ISPA,Tanda vital stabil,Nebulizer,Pulang dengan edukasi,,,2026-03-22T14:40:00Z
+per_0012,2026-03-23,pas_0023,antr_0023,bdn_ayu,Bdn. Ayu Kurniasih,Gastritis,Perlu hidrasi,PPI oral,Kontrol 7 hari,,,2026-03-23T15:40:00Z
+per_0013,2026-03-26,pas_0002,antr_0026,dok_andi,dr. Andi Pratama,Anemia ringan,Perlu suplemen Fe,Tablet Fe,Pantau asupan,2026-04-15,Kontrol ANC,2026-03-26T10:40:00Z
+per_0014,2026-03-27,pas_0003,antr_0027,bdn_ayu,Bdn. Ayu Kurniasih,Kontrol kehamilan,Janin aktif,USG ANC,Lanjut kontrol rutin,,,2026-03-27T11:40:00Z
+per_0015,2026-03-30,pas_0006,antr_0030,dok_andi,dr. Andi Pratama,Demam tifoid observasi,Perlu observasi 3 hari,Antipiretik,Kembali bila demam tinggi,,,2026-03-30T12:40:00Z
+per_0016,2026-03-31,pas_0007,antr_0031,bdn_ayu,Bdn. Ayu Kurniasih,ISPA,Tanda vital stabil,Nebulizer,Pulang dengan edukasi,2026-04-18,Kontrol ANC,2026-03-31T13:40:00Z
+per_0017,2026-03-03,pas_0010,antr_0034,dok_andi,dr. Andi Pratama,Gastritis,Perlu hidrasi,PPI oral,Kontrol 7 hari,,,2026-03-03T14:40:00Z
+per_0018,2026-03-04,pas_0011,antr_0035,bdn_ayu,Bdn. Ayu Kurniasih,Anemia ringan,Perlu suplemen Fe,Tablet Fe,Pantau asupan,,,2026-03-04T15:40:00Z
+per_0019,2026-03-07,pas_0014,antr_0038,dok_andi,dr. Andi Pratama,Kontrol kehamilan,Janin aktif,USG ANC,Lanjut kontrol rutin,2026-04-21,Kontrol ANC,2026-03-07T10:40:00Z
+per_0020,2026-03-08,pas_0015,antr_0039,bdn_ayu,Bdn. Ayu Kurniasih,Demam tifoid observasi,Perlu observasi 3 hari,Antipiretik,Kembali bila demam tinggi,,,2026-03-08T11:40:00Z
+per_0021,2026-03-11,pas_0018,antr_0042,dok_andi,dr. Andi Pratama,ISPA,Tanda vital stabil,Nebulizer,Pulang dengan edukasi,,,2026-03-11T12:40:00Z

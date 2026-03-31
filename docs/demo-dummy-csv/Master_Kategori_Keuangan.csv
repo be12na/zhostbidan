@@ -1,0 +1,11 @@
+kategori_id,jenis,nama_kategori,status_aktif,sort_order
+katm_001,Masuk,Pasien Periksa,Aktif,1
+katm_002,Masuk,Endorsement,Aktif,2
+katm_003,Masuk,Kerjasama Brand,Aktif,3
+katm_004,Masuk,Penjualan Obat,Aktif,4
+katm_005,Masuk,Lain-lain,Aktif,5
+katk_001,Keluar,Beli Obat / Farmasi,Aktif,1
+katk_002,Keluar,Alat Medis,Aktif,2
+katk_003,Keluar,Perbaikan Klinik,Aktif,3
+katk_004,Keluar,Gaji & Operasional,Aktif,4
+katk_005,Keluar,Lain-lain,Aktif,5

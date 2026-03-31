@@ -1,0 +1,9 @@
+layanan_id,nama_layanan,status_aktif,sort_order
+lay_001,ANC,Aktif,1
+lay_002,Pemeriksaan Umum,Aktif,2
+lay_003,Imunisasi,Aktif,3
+lay_004,KB,Aktif,4
+lay_005,USG,Aktif,5
+lay_006,Konsultasi Laktasi,Aktif,6
+lay_007,Kontrol Nifas,Aktif,7
+lay_008,Perawatan Luka,Aktif,8

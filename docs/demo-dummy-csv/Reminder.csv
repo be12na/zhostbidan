@@ -1,0 +1,8 @@
+reminder_id,pasien_id,nama,no_wa,jenis,waktu,status,catatan_cs,created_at,updated_at
+rem_0001,pas_0002,Nadya Maharani,081100000731,Kontrol ANC,2026-04-03,Belum Dihubungi,Auto reminder dari pemeriksaan,2026-03-02T15:00:00Z,2026-03-02T16:00:00Z
+rem_0002,pas_0007,Laila Fitriani,081100004386,Kontrol ANC,2026-04-06,Sudah Dihubungi,Pasien diminta konfirmasi jadwal,2026-03-07T15:00:00Z,2026-03-07T16:00:00Z
+rem_0003,pas_0014,Nia Agustina,081100009503,Kontrol ANC,2026-04-09,Follow Up Ulang,Perlu follow up ulang minggu depan,2026-03-14T15:00:00Z,2026-03-14T16:00:00Z
+rem_0004,pas_0019,Nabila Salsabila,081100013158,Kontrol ANC,2026-04-12,Belum Dihubungi,Auto reminder dari pemeriksaan,2026-03-19T15:00:00Z,2026-03-19T16:00:00Z
+rem_0005,pas_0002,Nadya Maharani,081100000731,Kontrol ANC,2026-04-15,Sudah Dihubungi,Pasien diminta konfirmasi jadwal,2026-03-26T15:00:00Z,2026-03-26T16:00:00Z
+rem_0006,pas_0007,Laila Fitriani,081100004386,Kontrol ANC,2026-04-18,Follow Up Ulang,Perlu follow up ulang minggu depan,2026-03-31T15:00:00Z,2026-03-31T16:00:00Z
+rem_0007,pas_0014,Nia Agustina,081100009503,Kontrol ANC,2026-04-21,Belum Dihubungi,Auto reminder dari pemeriksaan,2026-03-07T15:00:00Z,2026-03-07T16:00:00Z

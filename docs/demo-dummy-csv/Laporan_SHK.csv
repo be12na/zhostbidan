@@ -1,0 +1,3 @@
+id,tanggal,pasien,nama_bayi,tgl_lahir_bayi,faskes_lahir,jenis_kelamin,kembar,bb_bayi,pb_bayi,umur_kehamilan,kelainan_bawaan,pengobatan_bayi,obat_tiroid_ibu,faskes_sampel,tgl_sampel,lokasi_darah,transfusi,tgl_transfusi,keterangan,created_at
+shk_0001,2026-03-09,Tania Nurhaliza,Alya Zahra,2026-03-08,Klinik Zhost Bidan,P,Tidak,3200,49,39,Tidak,Tidak,Tidak,Klinik Zhost Bidan,2026-03-09,Tumit,Tidak,,Sampel terkirim,2026-03-09T13:10:00Z
+shk_0002,2026-03-22,Siti Nur Aisyah,Arkan Zidan,2026-03-21,Klinik Zhost Bidan,L,Tidak,3000,48,38,Tidak,Tidak,Tidak,Klinik Zhost Bidan,2026-03-22,Tumit,Tidak,,Menunggu hasil lab,2026-03-22T12:00:00Z

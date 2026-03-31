@@ -1,0 +1,11 @@
+log_id,action,resource,actor,detail,created_at
+log_0001,login,auth,owner@zhostbidan.demo,User login from web dashboard,2026-03-31T08:10:00Z
+log_0002,create,patients,cs1@zhostbidan.demo,Create patient pas_0007,2026-03-07T09:20:00Z
+log_0003,create,queue,cs2@zhostbidan.demo,Create queue antr_0012,2026-03-12T08:15:00Z
+log_0004,update,queue,medis1@zhostbidan.demo,Update queue status to Selesai,2026-03-12T10:15:00Z
+log_0005,create,examinations,medis2@zhostbidan.demo,Create examination per_0006,2026-03-14T11:30:00Z
+log_0006,create,reminders,system,Auto reminder from examination per_0006,2026-03-14T11:35:00Z
+log_0007,create,finance,finance1@zhostbidan.demo,Create trx_0021,2026-03-21T18:00:00Z
+log_0008,update,users,owner@zhostbidan.demo,Set user usr_0010 to nonaktif,2026-03-22T09:00:00Z
+log_0009,create,attendance,hrd@zhostbidan.demo,Input attendance abs_0039,2026-03-11T20:00:00Z
+log_0010,export,reports,admin@zhostbidan.demo,Export laporan ANC CSV,2026-03-30T16:10:00Z

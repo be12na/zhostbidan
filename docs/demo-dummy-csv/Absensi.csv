@@ -1,0 +1,82 @@
+absensi_id,tanggal,karyawan_id,status,lembur_jam,catatan,input_by,created_at
+abs_0001,2026-03-01,kar_001,Hadir,0,,hrd@zhostbidan.demo,2026-03-01T20:00:00Z
+abs_0002,2026-03-01,kar_002,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-01T20:00:00Z
+abs_0003,2026-03-01,kar_004,Lembur,2,,hrd@zhostbidan.demo,2026-03-01T20:00:00Z
+abs_0004,2026-03-01,kar_005,Libur,0,,hrd@zhostbidan.demo,2026-03-01T20:00:00Z
+abs_0005,2026-03-01,kar_006,Hadir,0,,hrd@zhostbidan.demo,2026-03-01T20:00:00Z
+abs_0006,2026-03-01,kar_008,Hadir,0,,hrd@zhostbidan.demo,2026-03-01T20:00:00Z
+abs_0007,2026-03-01,kar_009,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-01T20:00:00Z
+abs_0008,2026-03-02,kar_001,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-02T20:00:00Z
+abs_0009,2026-03-02,kar_003,Lembur,2,,hrd@zhostbidan.demo,2026-03-02T20:00:00Z
+abs_0010,2026-03-02,kar_004,Libur,0,,hrd@zhostbidan.demo,2026-03-02T20:00:00Z
+abs_0011,2026-03-02,kar_005,Hadir,0,,hrd@zhostbidan.demo,2026-03-02T20:00:00Z
+abs_0012,2026-03-02,kar_007,Hadir,0,,hrd@zhostbidan.demo,2026-03-02T20:00:00Z
+abs_0013,2026-03-02,kar_008,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-02T20:00:00Z
+abs_0014,2026-03-02,kar_009,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-02T20:00:00Z
+abs_0015,2026-03-03,kar_002,Lembur,2,,hrd@zhostbidan.demo,2026-03-03T20:00:00Z
+abs_0016,2026-03-03,kar_003,Libur,0,,hrd@zhostbidan.demo,2026-03-03T20:00:00Z
+abs_0017,2026-03-03,kar_004,Hadir,0,,hrd@zhostbidan.demo,2026-03-03T20:00:00Z
+abs_0018,2026-03-03,kar_006,Hadir,0,,hrd@zhostbidan.demo,2026-03-03T20:00:00Z
+abs_0019,2026-03-03,kar_007,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-03T20:00:00Z
+abs_0020,2026-03-03,kar_008,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-03T20:00:00Z
+abs_0021,2026-03-04,kar_001,Lembur,2,,hrd@zhostbidan.demo,2026-03-04T20:00:00Z
+abs_0022,2026-03-04,kar_002,Libur,0,,hrd@zhostbidan.demo,2026-03-04T20:00:00Z
+abs_0023,2026-03-04,kar_003,Hadir,0,,hrd@zhostbidan.demo,2026-03-04T20:00:00Z
+abs_0024,2026-03-04,kar_005,Hadir,0,,hrd@zhostbidan.demo,2026-03-04T20:00:00Z
+abs_0025,2026-03-04,kar_006,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-04T20:00:00Z
+abs_0026,2026-03-04,kar_007,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-04T20:00:00Z
+abs_0027,2026-03-04,kar_009,Libur,0,,hrd@zhostbidan.demo,2026-03-04T20:00:00Z
+abs_0028,2026-03-05,kar_001,Libur,0,,hrd@zhostbidan.demo,2026-03-05T20:00:00Z
+abs_0029,2026-03-05,kar_002,Hadir,0,,hrd@zhostbidan.demo,2026-03-05T20:00:00Z
+abs_0030,2026-03-05,kar_004,Hadir,0,,hrd@zhostbidan.demo,2026-03-05T20:00:00Z
+abs_0031,2026-03-05,kar_005,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-05T20:00:00Z
+abs_0032,2026-03-05,kar_006,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-05T20:00:00Z
+abs_0033,2026-03-05,kar_008,Libur,0,,hrd@zhostbidan.demo,2026-03-05T20:00:00Z
+abs_0034,2026-03-05,kar_009,Hadir,0,,hrd@zhostbidan.demo,2026-03-05T20:00:00Z
+abs_0035,2026-03-06,kar_001,Hadir,0,,hrd@zhostbidan.demo,2026-03-06T20:00:00Z
+abs_0036,2026-03-06,kar_003,Hadir,0,,hrd@zhostbidan.demo,2026-03-06T20:00:00Z
+abs_0037,2026-03-06,kar_004,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-06T20:00:00Z
+abs_0038,2026-03-06,kar_005,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-06T20:00:00Z
+abs_0039,2026-03-06,kar_007,Libur,0,,hrd@zhostbidan.demo,2026-03-06T20:00:00Z
+abs_0040,2026-03-06,kar_008,Hadir,0,,hrd@zhostbidan.demo,2026-03-06T20:00:00Z
+abs_0041,2026-03-06,kar_009,Hadir,0,,hrd@zhostbidan.demo,2026-03-06T20:00:00Z
+abs_0042,2026-03-07,kar_002,Hadir,0,,hrd@zhostbidan.demo,2026-03-07T20:00:00Z
+abs_0043,2026-03-07,kar_003,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-07T20:00:00Z
+abs_0044,2026-03-07,kar_004,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-07T20:00:00Z
+abs_0045,2026-03-07,kar_006,Libur,0,,hrd@zhostbidan.demo,2026-03-07T20:00:00Z
+abs_0046,2026-03-07,kar_007,Hadir,0,,hrd@zhostbidan.demo,2026-03-07T20:00:00Z
+abs_0047,2026-03-07,kar_008,Hadir,0,,hrd@zhostbidan.demo,2026-03-07T20:00:00Z
+abs_0048,2026-03-08,kar_001,Hadir,0,,hrd@zhostbidan.demo,2026-03-08T20:00:00Z
+abs_0049,2026-03-08,kar_002,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-08T20:00:00Z
+abs_0050,2026-03-08,kar_003,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-08T20:00:00Z
+abs_0051,2026-03-08,kar_005,Libur,0,,hrd@zhostbidan.demo,2026-03-08T20:00:00Z
+abs_0052,2026-03-08,kar_006,Hadir,0,,hrd@zhostbidan.demo,2026-03-08T20:00:00Z
+abs_0053,2026-03-08,kar_007,Hadir,0,,hrd@zhostbidan.demo,2026-03-08T20:00:00Z
+abs_0054,2026-03-08,kar_009,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-08T20:00:00Z
+abs_0055,2026-03-09,kar_001,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-09T20:00:00Z
+abs_0056,2026-03-09,kar_002,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-09T20:00:00Z
+abs_0057,2026-03-09,kar_004,Libur,0,,hrd@zhostbidan.demo,2026-03-09T20:00:00Z
+abs_0058,2026-03-09,kar_005,Hadir,0,,hrd@zhostbidan.demo,2026-03-09T20:00:00Z
+abs_0059,2026-03-09,kar_006,Hadir,0,,hrd@zhostbidan.demo,2026-03-09T20:00:00Z
+abs_0060,2026-03-09,kar_008,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-09T20:00:00Z
+abs_0061,2026-03-09,kar_009,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-09T20:00:00Z
+abs_0062,2026-03-10,kar_001,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-10T20:00:00Z
+abs_0063,2026-03-10,kar_003,Libur,0,,hrd@zhostbidan.demo,2026-03-10T20:00:00Z
+abs_0064,2026-03-10,kar_004,Hadir,0,,hrd@zhostbidan.demo,2026-03-10T20:00:00Z
+abs_0065,2026-03-10,kar_005,Hadir,0,,hrd@zhostbidan.demo,2026-03-10T20:00:00Z
+abs_0066,2026-03-10,kar_007,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-10T20:00:00Z
+abs_0067,2026-03-10,kar_008,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-10T20:00:00Z
+abs_0068,2026-03-10,kar_009,Lembur,2,,hrd@zhostbidan.demo,2026-03-10T20:00:00Z
+abs_0069,2026-03-11,kar_002,Libur,0,,hrd@zhostbidan.demo,2026-03-11T20:00:00Z
+abs_0070,2026-03-11,kar_003,Hadir,0,,hrd@zhostbidan.demo,2026-03-11T20:00:00Z
+abs_0071,2026-03-11,kar_004,Hadir,0,,hrd@zhostbidan.demo,2026-03-11T20:00:00Z
+abs_0072,2026-03-11,kar_006,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-11T20:00:00Z
+abs_0073,2026-03-11,kar_007,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-11T20:00:00Z
+abs_0074,2026-03-11,kar_008,Lembur,2,,hrd@zhostbidan.demo,2026-03-11T20:00:00Z
+abs_0075,2026-03-12,kar_001,Libur,0,,hrd@zhostbidan.demo,2026-03-12T20:00:00Z
+abs_0076,2026-03-12,kar_002,Hadir,0,,hrd@zhostbidan.demo,2026-03-12T20:00:00Z
+abs_0077,2026-03-12,kar_003,Hadir,0,,hrd@zhostbidan.demo,2026-03-12T20:00:00Z
+abs_0078,2026-03-12,kar_005,Izin,0,Izin keluarga,hrd@zhostbidan.demo,2026-03-12T20:00:00Z
+abs_0079,2026-03-12,kar_006,Cuti,0,Cuti terjadwal,hrd@zhostbidan.demo,2026-03-12T20:00:00Z
+abs_0080,2026-03-12,kar_007,Lembur,2,,hrd@zhostbidan.demo,2026-03-12T20:00:00Z
+abs_0081,2026-03-12,kar_009,Hadir,0,,hrd@zhostbidan.demo,2026-03-12T20:00:00Z

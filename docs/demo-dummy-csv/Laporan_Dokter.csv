@@ -1,0 +1,4 @@
+id,tanggal,pasien,diagnosa,analisa,tindakan,resep,catatan,created_at
+dok_0001,2026-03-04,Anisa Mardhiyah,ISPA,Tanpa komplikasi,Nebulizer,Paracetamol 500mg,Kontrol bila batuk > 3 hari,2026-03-04T11:40:00Z
+dok_0002,2026-03-10,Rahmawati Nuraini,Gastritis,Iritasi lambung,Terapi oral,Omeprazole,Hindari makanan pedas,2026-03-10T09:55:00Z
+dok_0003,2026-03-28,Putri Cahyani,Anemia ringan,Hb rendah,Terapi suplemen,Tablet Fe,Kontrol 14 hari,2026-03-28T10:30:00Z

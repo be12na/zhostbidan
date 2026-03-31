@@ -1,0 +1,11 @@
+karyawan_id,nama,posisi,kontak,jadwal,status_aktif,created_at,updated_at
+kar_001,Bdn. Ayu Kurniasih,Bidan,081230000001,Shift Pagi,Aktif,2026-01-01T08:00:00Z,2026-03-31T09:00:00Z
+kar_002,dr. Andi Pratama,Dokter Umum,081230000002,Shift Pagi,Aktif,2026-01-01T08:00:00Z,2026-03-31T09:00:00Z
+kar_003,Salsa Maulida,Customer Service,081230000003,Shift Siang,Aktif,2026-01-05T08:00:00Z,2026-03-30T14:00:00Z
+kar_004,Rani Lestari,Customer Service,081230000004,Shift Siang,Aktif,2026-01-11T08:00:00Z,2026-03-30T14:00:00Z
+kar_005,Fajar Nugroho,Staff Keuangan,081230000005,Shift Pagi,Aktif,2026-01-03T08:00:00Z,2026-03-31T12:00:00Z
+kar_006,Fina Azzahra,Staff Keuangan,081230000006,Shift Pagi,Aktif,2026-01-13T08:00:00Z,2026-03-31T12:00:00Z
+kar_007,Nur Komariah,Admin Klinik,081230000007,Shift Pagi,Aktif,2026-01-08T08:00:00Z,2026-03-29T10:30:00Z
+kar_008,Widi Astuti,Perawat,081230000008,Shift Malam,Aktif,2026-02-01T08:00:00Z,2026-03-28T10:30:00Z
+kar_009,Rizal Hidayat,Farmasi,081230000009,Shift Siang,Aktif,2026-02-12T08:00:00Z,2026-03-28T10:30:00Z
+kar_010,Evi Damayanti,Front Office,081230000010,Shift Pagi,Nonaktif,2026-02-18T08:00:00Z,2026-03-20T10:30:00Z

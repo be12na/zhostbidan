@@ -1,0 +1,4 @@
+id,tanggal,pasien,hpht,tp_uk,diagnosa,kspr,bb_tb,lila,hb,gol_darah,albumin,hiv,hepatitis_b,sifilis,buku_kia,keterangan,created_at
+anc_0001,2026-03-05,Aisyah Putri Ramadhani,2025-08-01,TP 2026-05-08 UK 30,Kehamilan normal,Risiko rendah,58/158,24,11.8,O,Negatif,Non Reaktif,Negatif,Non Reaktif,Ada,Lanjut kontrol 2 minggu,2026-03-05T11:00:00Z
+anc_0002,2026-03-12,Nadya Maharani,2025-08-10,TP 2026-05-17 UK 29,Anemia ringan,Risiko sedang,55/156,23,10.6,A,Negatif,Non Reaktif,Negatif,Non Reaktif,Ada,Tambahan Fe harian,2026-03-12T10:45:00Z
+anc_0003,2026-03-18,Rina Kartika Sari,2025-08-20,TP 2026-05-27 UK 28,Mual trimester akhir,Risiko rendah,60/160,25,12.1,B,Negatif,Non Reaktif,Negatif,Non Reaktif,Ada,Edukasi nutrisi,2026-03-18T09:30:00Z

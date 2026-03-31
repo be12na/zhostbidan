@@ -1,0 +1,3 @@
+id,tanggal_input,no_rm_bayi,nama_bayi,nik_bayi,jk_bayi,tgl_lahir_bayi,nama_ibu,nik_ibu,hp_ibu,alamat_ibu,v_hb0,v_bcg,v_polio1,v_dpt1,v_pcv1,v_polio2,v_dpt2,v_pcv2,v_polio3,v_dpt3,v_polio4,v_ipv,v_campak,v_je,v_pcv3,v_dpt_baduta,v_campak_baduta,v_ipv2,v_ipv3,v_pcv4,v_ipv4,v_rotavirus1,v_rotavirus2,v_rotavirus3,created_at
+imu_0001,2026-03-11,RM-202603-0001,Alya Zahra,3273010000000001,P,2026-03-08,Tania Nurhaliza,3273010000000101,081255551001,Bandung,2026-03-08,2026-03-11,,,,,,,,,,,,,,,,,,,,,,,2026-03-11T10:00:00Z
+imu_0002,2026-03-25,RM-202603-0002,Arkan Zidan,3273010000000002,L,2026-03-21,Siti Nur Aisyah,3273010000000102,081255551002,Cimahi,2026-03-21,2026-03-25,,,,,,,,,,,,,,,,,,,,,,,2026-03-25T10:00:00Z
