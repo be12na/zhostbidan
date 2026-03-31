@@ -1,0 +1,2395 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  CheckCircle2, ShieldCheck, Activity, Users, 
+  MessageSquare, DollarSign, UserPlus, Bell, LogOut, 
+  HeartPulse, Building2, Clock, ArrowRight, ChevronDown, 
+  ChevronUp, FileText, PlusCircle, MinusCircle, 
+  Trash2, Edit, Calendar, ClipboardList, Stethoscope, Database, Download
+} from 'lucide-react';
+
+// --- DATABASE MOCKUP ---
+const initialUsers = [
+  { id: 1, nama: "Dr. Tirta (Pemilik)", email: "owner@klinik.com", role: "pemilik" },
+  { id: 2, nama: "Admin Rara", email: "admin@klinik.com", role: "admin_klinik" },
+  { id: 3, nama: "CS Siska", email: "cs@klinik.com", role: "cs" },
+  { id: 4, nama: "Finance Budi", email: "finance@klinik.com", role: "keuangan" },
+];
+
+// --- KOMPONEN LANDING PAGE & LOGIN ---
+const LandingPage = ({ onLogin, users }) => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [emailInput, setEmailInput] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    const foundUser = users.find(u => u.email === emailInput.toLowerCase());
+    if (foundUser) {
+      setErrorMsg('');
+      onLogin(foundUser);
+    } else {
+      setErrorMsg('Email tidak terdaftar atau tidak memiliki akses.');
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 overflow-x-hidden">
+      {/* Navbar */}
+      <nav className="bg-white shadow-sm fixed w-full z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16 items-center">
+            <div className="flex items-center gap-2">
+              <HeartPulse className="h-8 w-8 text-teal-600" />
+              <span className="font-bold text-2xl text-teal-800">Klinik<span className="text-amber-500">Cerdas</span></span>
+            </div>
+            <div className="flex items-center gap-4">
+              <a href="#fitur" className="hidden md:block text-sm font-bold text-slate-600 hover:text-teal-600">Fitur</a>
+              <a href="#harga" className="hidden md:block text-sm font-bold text-slate-600 hover:text-teal-600">Harga</a>
+              <button 
+                onClick={() => setShowLoginModal(true)}
+                className="bg-amber-400 text-slate-900 px-6 py-2 rounded-full font-bold hover:bg-amber-500 transition flex items-center gap-2 shadow-sm"
+              >
+                Login Sistem <ArrowRight size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Login Modal */}
+      {showLoginModal && (
+        <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl border-t-4 border-teal-500 animate-in fade-in zoom-in duration-200">
+            <h3 className="text-2xl font-bold text-teal-900 mb-2">Masuk ke Dashboard</h3>
+            <p className="text-sm text-slate-500 mb-6">Masukkan email akses yang telah didaftarkan oleh Pemilik Klinik.</p>
+            
+            <form onSubmit={handleLoginSubmit}>
+              <div className="mb-4">
+                <label className="block text-sm font-bold text-slate-700 mb-1">Email Terdaftar</label>
+                <input 
+                  type="email" 
+                  required
+                  placeholder="contoh: admin@klinik.com"
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-base"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                />
+              </div>
+              
+              {errorMsg && (
+                <div className="mb-4 text-sm text-red-600 bg-red-50 p-3 rounded-lg border border-red-100 flex items-center gap-2">
+                  <ShieldCheck size={16} /> {errorMsg}
+                </div>
+              )}
+
+              <button type="submit" className="w-full bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition mb-4 shadow-md text-lg">
+                Masuk Dashboard
+              </button>
+            </form>
+
+            <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-100 text-xs text-blue-800">
+              <p className="font-bold mb-2">Email Demo yang bisa dicoba:</p>
+              <div className="grid grid-cols-1 gap-2">
+                <button onClick={() => setEmailInput('owner@klinik.com')} className="text-left bg-white px-3 py-1.5 rounded border border-blue-200 hover:border-blue-400 font-medium">owner@klinik.com (Pemilik)</button>
+                <button onClick={() => setEmailInput('admin@klinik.com')} className="text-left bg-white px-3 py-1.5 rounded border border-blue-200 hover:border-blue-400 font-medium">admin@klinik.com (Admin Klinik)</button>
+                <button onClick={() => setEmailInput('finance@klinik.com')} className="text-left bg-white px-3 py-1.5 rounded border border-blue-200 hover:border-blue-400 font-medium">finance@klinik.com (Staf Keuangan)</button>
+                <button onClick={() => setEmailInput('cs@klinik.com')} className="text-left bg-white px-3 py-1.5 rounded border border-blue-200 hover:border-blue-400 font-medium">cs@klinik.com (Customer Service)</button>
+              </div>
+            </div>
+
+            <button onClick={() => setShowLoginModal(false)} className="mt-4 w-full text-center text-slate-500 hover:text-slate-800 font-bold p-2">
+              Batal & Kembali
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Hero Section */}
+      <div className="pt-32 pb-20 bg-gradient-to-b from-teal-50 to-white text-center px-4 relative overflow-hidden">
+        <div className="absolute top-20 left-10 text-teal-100 opacity-50"><HeartPulse size={120} /></div>
+        <div className="absolute bottom-10 right-10 text-amber-100 opacity-50"><Activity size={150} /></div>
+        
+        <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 max-w-4xl mx-auto leading-tight tracking-tight relative z-10">
+          Ubah Klinik Anda Jadi Lebih <span className="text-teal-600 block mt-2">Modern, Profesional, dan Efisien</span>
+        </h1>
+        <p className="mt-6 text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed relative z-10">
+          Dari manajemen antrian, rekam medis elektronik, pembukuan keuangan, hingga laporan otomatis. Semua terselesaikan dalam satu platform yang praktis.
+        </p>
+        
+        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 relative z-10">
+          <button onClick={() => setShowLoginModal(true)} className="bg-teal-600 text-white px-8 py-3.5 rounded-full font-bold text-lg hover:bg-teal-700 transition shadow-xl hover:shadow-teal-600/20 flex items-center justify-center gap-2">
+            <Calendar size={20} /> Coba Demo Sekarang
+          </button>
+          <a href="#harga" className="bg-white text-teal-800 border-2 border-teal-100 px-8 py-3.5 rounded-full font-bold text-lg hover:bg-teal-50 hover:border-teal-200 transition shadow-sm flex items-center justify-center gap-2">
+            <DollarSign size={20} /> Lihat Paket Harga
+          </a>
+        </div>
+      </div>
+      
+      {/* Keunggulan (Features) Section */}
+      <div id="fitur" className="py-20 bg-white px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">Sistem Lengkap Untuk Semua Kebutuhan Klinik</h2>
+            <p className="mt-4 text-lg text-slate-500 max-w-2xl mx-auto">Tinggalkan cara manual. KlinikCerdas dirancang untuk mempercepat alur kerja Anda sehingga Anda bisa fokus melayani pasien.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+              <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6">
+                <Users size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">Manajemen Antrian & RM</h3>
+              <p className="text-slate-600 leading-relaxed">Kelola pendaftaran pasien baru dan lama dengan mudah. Rekam medis tersimpan rapi, aman, dan bisa diakses oleh dokter secara real-time.</p>
+            </div>
+            
+            {/* Feature 2 */}
+            <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+              <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-6">
+                <Activity size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">Pemeriksaan & Diagnosa</h3>
+              <p className="text-slate-600 leading-relaxed">Formulir pemeriksaan yang disesuaikan (ANC, Partus, SHK, KB, Imunisasi) memudahkan nakes mencatat riwayat observasi dan tindakan.</p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+              <div className="w-14 h-14 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mb-6">
+                <DollarSign size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">Kasir & Pembukuan</h3>
+              <p className="text-slate-600 leading-relaxed">Pencatatan pemasukan pasien dan pengeluaran klinik terpusat. Pantau laba/rugi harian dengan satu klik tanpa pusing menghitung manual.</p>
+            </div>
+
+            {/* Feature 4 */}
+            <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+              <div className="w-14 h-14 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-6">
+                <MessageSquare size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">Reminder WhatsApp</h3>
+              <p className="text-slate-600 leading-relaxed">Tingkatkan loyalitas pasien! Jadwal kontrol yang dibuat dokter otomatis masuk ke daftar CS untuk di-follow up langsung via WhatsApp.</p>
+            </div>
+
+            {/* Feature 5 */}
+            <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+              <div className="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-6">
+                <Clock size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">Absensi & HRD Karyawan</h3>
+              <p className="text-slate-600 leading-relaxed">Pantau kinerja tim, jadwal jaga, kehadiran, cuti, hingga lembur staf klinik Anda dalam satu dashboard laporan rekapitulasi yang bersih.</p>
+            </div>
+
+            {/* Feature 6 */}
+            <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+              <div className="w-14 h-14 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center mb-6">
+                <Download size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">Export Laporan Otomatis</h3>
+              <p className="text-slate-600 leading-relaxed">Butuh rekap data akhir bulan? Ekspor laporan pasien, keuangan, dan absensi ke format Excel/CSV secara instan hanya dengan sekali klik.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Pricing Section */}
+      <div id="harga" className="py-24 bg-slate-900 text-white px-4">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Investasi Terjangkau Untuk Klinik Anda</h2>
+          <p className="text-slate-400 mb-16 text-lg max-w-2xl mx-auto">Pilih paket yang sesuai. Tanpa biaya instalasi tersembunyi, dapatkan akses penuh ke semua fitur premium KlinikCerdas.</p>
+          
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            
+            {/* Paket Bulanan */}
+            <div className="bg-slate-800 rounded-3xl p-8 border border-slate-700 hover:border-teal-500 transition flex flex-col text-left">
+              <h3 className="text-2xl font-bold text-slate-100 mb-2">Paket Bulanan</h3>
+              <p className="text-slate-400 text-sm mb-6">Cocok untuk mencoba dan melihat dampak sistem kami.</p>
+              <div className="mb-8">
+                <span className="text-5xl font-extrabold text-white">Rp 99.000</span>
+                <span className="text-slate-400 font-medium"> / bulan</span>
+              </div>
+              <ul className="space-y-4 mb-8 flex-1">
+                {["Akses Semua Fitur Laporan", "Manajemen Pasien & Antrian", "Modul Kasir & Keuangan", "Absensi Karyawan (HRD)", "Update Sistem Gratis"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-slate-300">
+                    <CheckCircle2 size={20} className="text-teal-400 shrink-0" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <button onClick={() => setShowLoginModal(true)} className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-xl transition border border-slate-600 text-lg">
+                Pilih Bulanan
+              </button>
+            </div>
+
+            {/* Paket Tahunan */}
+            <div className="bg-gradient-to-b from-teal-900 to-teal-800 rounded-3xl p-8 border-2 border-teal-400 relative flex flex-col text-left transform md:-translate-y-4 shadow-2xl shadow-teal-900/50">
+              <div className="absolute top-0 right-8 transform -translate-y-1/2 bg-amber-400 text-slate-900 px-4 py-1 rounded-full text-sm font-extrabold uppercase tracking-wide">
+                Paling Hemat
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">Paket Tahunan</h3>
+              <p className="text-teal-200 text-sm mb-6">Investasi cerdas untuk klinik yang berkembang pesat.</p>
+              <div className="mb-8">
+                <span className="text-5xl font-extrabold text-white">Rp 899.000</span>
+                <span className="text-teal-200 font-medium"> / tahun</span>
+              </div>
+              <ul className="space-y-4 mb-8 flex-1">
+                {["Semua Fitur di Paket Bulanan", "Hemat Lebih dari 2 Bulan", "Prioritas Layanan CS", "Akses Multi-Device", "Aman & Terenkripsi"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-teal-50">
+                    <CheckCircle2 size={20} className="text-amber-400 shrink-0" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <button onClick={() => setShowLoginModal(true)} className="w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-extrabold py-4 rounded-xl transition text-lg shadow-lg shadow-amber-400/20">
+                Langganan Sekarang
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Footer */}
+      <div className="bg-teal-50 py-20 text-center px-4 border-t border-teal-100">
+        <div className="max-w-3xl mx-auto">
+          <HeartPulse className="h-16 w-16 text-teal-500 mx-auto mb-6" />
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6">Tingkatkan Kualitas Layanan Klinik Anda Hari Ini</h2>
+          <p className="text-lg text-slate-600 mb-10">Bergabunglah dengan faskes modern lainnya yang telah mendigitalisasi operasional mereka. Mulai kelola klinik dengan lebih efisien tanpa ribet.</p>
+          <button 
+            onClick={() => setShowLoginModal(true)}
+            className="bg-teal-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-teal-700 transition shadow-xl hover:shadow-teal-600/30 flex items-center justify-center gap-2 mx-auto"
+          >
+            Masuk ke Aplikasi <ArrowRight size={20} />
+          </button>
+        </div>
+      </div>
+      
+      {/* Tiny Footer */}
+      <footer className="bg-white py-6 border-t border-slate-100 text-center text-slate-400 text-sm">
+        <p>&copy; {new Date().getFullYear()} KlinikCerdas. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+};
+
+// --- KOMPONEN DASHBOARD (SISTEM KLINIK) ---
+const Dashboard = ({ 
+  user, usersData, setUsersData, onLogout,
+  pasienData, setPasienData,
+  antrianData, setAntrianData,
+  karyawanData, setKaryawanData,
+  financeTransactions, setFinanceTransactions,
+  reminderData, setReminderData,
+  laporanData, setLaporanData
+}) => {
+  const [activeMenu, setActiveMenu] = useState('');
+  const [expandedMenu, setExpandedMenu] = useState('');
+  
+  // States untuk Modals
+  const [showPasienModal, setShowPasienModal] = useState(false); 
+  const [showInputDatabaseModal, setShowInputDatabaseModal] = useState(false); 
+  const [showPasienLamaModal, setShowPasienLamaModal] = useState(false); 
+  const [editPasienModal, setEditPasienModal] = useState({ isOpen: false, data: null });
+  
+  const [showFinanceModal, setShowFinanceModal] = useState(null); 
+  const [kategoriKeuangan, setKategoriKeuangan] = useState(''); 
+
+  const [showPeriksaModal, setShowPeriksaModal] = useState({ isOpen: false, data: null, source: 'antrian' });
+  const [showKaryawanModal, setShowKaryawanModal] = useState(false);
+  const [showAbsensiSusulanModal, setShowAbsensiSusulanModal] = useState(false);
+  const [aksesModal, setAksesModal] = useState({ isOpen: false, mode: 'add', data: null });
+  const [editReminderModal, setEditReminderModal] = useState({ isOpen: false, data: null });
+  const [showInputLaporanModal, setShowInputLaporanModal] = useState(false);
+  const [editFinanceModal, setEditFinanceModal] = useState({ isOpen: false, data: null });
+
+  const [dobInput, setDobInput] = useState('');
+  const [calculatedAge, setCalculatedAge] = useState('');
+
+  useEffect(() => {
+    if (dobInput) {
+      const diffMs = Date.now() - new Date(dobInput).getTime();
+      const ageDt = new Date(diffMs); 
+      setCalculatedAge(Math.abs(ageDt.getUTCFullYear() - 1970) + " Tahun");
+    } else {
+      setCalculatedAge('');
+    }
+  }, [dobInput]);
+
+  // Konfigurasi Menu Sidebar
+  const allMenuItems = [
+    { id: 'antrian', label: 'Antrian Hari Ini', icon: ClipboardList },
+    { id: 'pasien', label: 'Data Pasien (RM)', icon: Users },
+    { id: 'keuangan', label: 'Keuangan Klinik', icon: DollarSign },
+    { id: 'komunikasi', label: 'Reminder Pasien', icon: MessageSquare },
+    { id: 'hrd', label: 'Karyawan & HRD', icon: Clock },
+    { 
+      id: 'laporan', 
+      label: 'Laporan-laporan', 
+      icon: FileText,
+      subItems: [
+        { id: 'lap_anc', label: 'Laporan ANC' },
+        { id: 'lap_partus', label: 'Laporan Partus' },
+        { id: 'lap_bidan', label: 'Laporan Bidan' },
+        { id: 'lap_dokter', label: 'Laporan Dokter' },
+        { id: 'lap_kecantikan', label: 'Laporan Klinik Kecantikan' },
+        { id: 'lap_shk', label: 'Laporan SHK' },            
+        { id: 'lap_imunisasi', label: 'Laporan Imunisasi' },
+        { id: 'lap_kb', label: 'Laporan KB' },              
+      ]
+    },
+    { id: 'hak_akses', label: 'Pengaturan Akses', icon: ShieldCheck },
+  ];
+
+  const rolePermissions = {
+    pemilik: ['antrian', 'pasien', 'keuangan', 'komunikasi', 'hrd', 'laporan', 'hak_akses'],
+    admin_klinik: ['antrian', 'pasien', 'laporan'],
+    cs: ['antrian', 'pasien', 'komunikasi'],
+    keuangan: ['keuangan'],
+  };
+
+  const allowedMenuIds = rolePermissions[user?.role] || [];
+  const menuItems = allMenuItems.filter(menu => allowedMenuIds.includes(menu.id));
+
+  React.useEffect(() => {
+    if (menuItems.length > 0 && !allowedMenuIds.includes(activeMenu) && !activeMenu.startsWith('lap_')) {
+      setActiveMenu(menuItems[0].id); 
+    }
+  }, [user]);
+
+  // --- HANDLERS ---
+  
+  const handleSimpanPasienBaru = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const isBpjs = formData.get('cara_bayar') === 'BPJS';
+    const newId = `RM00${pasienData.length + 1}`;
+    
+    const newPasien = {
+      id: newId, nama: formData.get('nama'), nik: formData.get('nik'), hp: formData.get('hp'),
+      noBpjs: isBpjs ? "Terdaftar" : "-", bpjs: isBpjs, satuSehat: true, lastVisit: new Date().toLocaleDateString('id-ID')
+    };
+    
+    const newAntrian = {
+      idAntrian: `A-00${antrianData.length + 1}`, pasienId: newId, nama: formData.get('nama'),
+      layanan: formData.get('layanan'), status: "Menunggu", diagnosa: "", analisa: ""
+    };
+
+    setPasienData([newPasien, ...pasienData]);
+    setAntrianData([...antrianData, newAntrian]);
+    setShowPasienModal(false); setDobInput(''); setActiveMenu('antrian'); 
+  };
+
+  const handleSimpanDatabaseLama = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const isBpjs = !!formData.get('bpjs');
+    const newId = `RM00${pasienData.length + 1}`;
+    
+    const newPasien = {
+      id: newId, nama: formData.get('nama'), nik: formData.get('nik'), hp: formData.get('hp'),
+      noBpjs: formData.get('bpjs') || "-", bpjs: isBpjs, satuSehat: true, lastVisit: formData.get('last_visit') || "Data Lama"
+    };
+
+    setPasienData([...pasienData, newPasien]);
+    setShowInputDatabaseModal(false);
+  };
+
+  const handleUpdatePasien = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    setPasienData(pasienData.map(p => p.id === editPasienModal.data.id ? {
+      ...p, nama: formData.get('nama'), nik: formData.get('nik'), hp: formData.get('hp'), noBpjs: formData.get('bpjs') || "-",
+    } : p));
+    setEditPasienModal({isOpen: false, data: null});
+  };
+
+  const handleSimpanPasienLama = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const selectedId = formData.get('pasien_id');
+    const pasien = pasienData.find(p => p.id === selectedId);
+    
+    if(pasien) {
+      const newAntrian = {
+        idAntrian: `A-00${antrianData.length + 1}`, pasienId: pasien.id, nama: pasien.nama,
+        layanan: formData.get('layanan'), status: "Menunggu", diagnosa: "", analisa: ""
+      };
+      setAntrianData([...antrianData, newAntrian]);
+      setPasienData(pasienData.map(p => p.id === pasien.id ? {...p, lastVisit: new Date().toLocaleDateString('id-ID')} : p));
+      setShowPasienLamaModal(false); setActiveMenu('antrian');
+    }
+  };
+
+  const handleSimpanDiagnosa = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const tglKembali = formData.get('tgl_kembali');
+    const keperluan = formData.get('keperluan');
+    
+    if (showPeriksaModal.source === 'antrian') {
+      setAntrianData(antrianData.map(a => {
+        if(a.idAntrian === showPeriksaModal.data.idAntrian) {
+          return { ...a, status: "Selesai", diagnosa: formData.get('diagnosa'), analisa: formData.get('analisa') };
+        }
+        return a;
+      }));
+    } else {
+      setPasienData(pasienData.map(p => p.id === showPeriksaModal.data.id ? {...p, lastVisit: new Date().toLocaleDateString('id-ID')} : p));
+    }
+
+    if (tglKembali && keperluan) {
+      const pasien = pasienData.find(p => p.id === showPeriksaModal.data.pasienId || p.id === showPeriksaModal.data.id);
+      const newReminder = {
+        id: reminderData.length + 1, nama: showPeriksaModal.data.nama, jenis: keperluan,
+        waktu: tglKembali, noWa: pasien?.hp || "-", status: "Belum Dihubungi"
+      };
+      setReminderData([...reminderData, newReminder]);
+    }
+
+    setShowPeriksaModal({ isOpen: false, data: null, source: 'antrian' });
+  };
+
+  const handleUpdateReminder = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    setReminderData(reminderData.map(r => r.id === editReminderModal.data.id ? {
+      ...r, nama: formData.get('nama'), waktu: formData.get('waktu'), jenis: formData.get('jenis'),
+      noWa: formData.get('noWa'), status: formData.get('status')
+    } : r));
+    setEditReminderModal({isOpen: false, data: null});
+  };
+
+  const handleKirimWA = (reminder) => {
+    let phone = reminder.noWa.replace(/\D/g, '');
+    if (phone.startsWith('0')) phone = '62' + phone.substring(1);
+    const message = `Halo Bapak/Ibu ${reminder.nama}, ini dari KlinikCerdas. Kami mengingatkan jadwal Anda untuk *${reminder.jenis}* pada tanggal: *${reminder.waktu}*. Mohon konfirmasi kehadirannya ya. Terima kasih!`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    setReminderData(reminderData.map(r => r.id === reminder.id ? { ...r, status: "Sudah Dihubungi" } : r));
+  };
+
+  const handleSaveAkses = (e) => { e.preventDefault(); const formData = new FormData(e.target); const newData = { nama: formData.get('nama'), email: formData.get('email').toLowerCase(), role: formData.get('role') }; if (aksesModal.mode === 'add') { const newId = usersData.length > 0 ? Math.max(...usersData.map(u => u.id)) + 1 : 1; setUsersData([...usersData, { id: newId, ...newData }]); } else { setUsersData(usersData.map(u => u.id === aksesModal.data.id ? { ...u, ...newData } : u)); } setAksesModal({ isOpen: false, mode: 'add', data: null }); };
+  const handleDeleteAkses = (id) => { if (window.confirm('Yakin ingin menghapus akses akun ini?')) { setUsersData(usersData.filter(u => u.id !== id)); } };
+  const handleSimpanKaryawan = (e) => { e.preventDefault(); const formData = new FormData(e.target); const newKaryawan = { id: karyawanData.length + 1, nama: formData.get('nama'), posisi: formData.get('posisi'), jadwal: formData.get('jadwal'), kontak: formData.get('kontak'), statusAbsen: "Hadir", hadirTotal: 0, liburTotal: 0, cutiTotal: 0, lemburJam: 0 }; setKaryawanData([...karyawanData, newKaryawan]); setShowKaryawanModal(false); };
+  
+  const handleSimpanAbsensiSusulan = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const karyId = parseInt(formData.get('karyawan_id'));
+    const status = formData.get('status');
+    const lembur = parseInt(formData.get('lembur')) || 0;
+
+    setKaryawanData(karyawanData.map(k => {
+      if (k.id === karyId) {
+        let addHadir = 0; let addCuti = 0; let addLibur = 0;
+        if (status === 'Hadir') addHadir = 1;
+        else if (['Cuti', 'Sakit', 'Izin'].includes(status)) addCuti = 1;
+        else if (status === 'Libur') addLibur = 1;
+
+        return {
+          ...k,
+          hadirTotal: (k.hadirTotal || 0) + addHadir,
+          cutiTotal: (k.cutiTotal || 0) + addCuti,
+          liburTotal: (k.liburTotal || 0) + addLibur,
+          lemburJam: (k.lemburJam || 0) + lembur
+        };
+      }
+      return k;
+    }));
+    setShowAbsensiSusulanModal(false);
+  };
+
+  const handleExportAbsensi = () => {
+    const headers = ["ID", "Nama Karyawan", "Posisi", "Total Hadir (Hari)", "Total Cuti/Sakit/Izin (Hari)", "Total Libur (Hari)", "Total Jam Lembur"];
+    const csvRows = karyawanData.map(k => 
+      `${k.id},"${k.nama}","${k.posisi}",${k.hadirTotal||0},${k.cutiTotal||0},${k.liburTotal||0},${k.lemburJam||0}`
+    );
+    const csvContent = [headers.join(","), ...csvRows].join("\n");
+    
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `Laporan_Absensi_Klinik_${new Date().toLocaleDateString('id-ID')}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleSimpanKeuangan = (e) => { 
+    e.preventDefault(); 
+    const formData = new FormData(e.target); 
+    const kat = kategoriKeuangan || formData.get('kategori');
+    const namaPasien = formData.get('pasien_periksa');
+    const descTambahan = namaPasien && kat === 'Pasien Periksa' ? ` (Pasien: ${namaPasien})` : '';
+
+    const newTransaction = { 
+      id: financeTransactions.length + 1, 
+      tanggal: formData.get('tanggal'), 
+      jenis: showFinanceModal === 'in' ? 'Masuk' : 'Keluar', 
+      kategori: kat, 
+      nominal: parseInt(formData.get('nominal')), 
+      desc: formData.get('keterangan') + descTambahan
+    }; 
+    setFinanceTransactions([newTransaction, ...financeTransactions]); 
+    setShowFinanceModal(null); 
+    setKategoriKeuangan('');
+  };
+
+  const handleUpdateFinance = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    setFinanceTransactions(financeTransactions.map(t => t.id === editFinanceModal.data.id ? {
+      ...t,
+      tanggal: formData.get('tanggal'),
+      kategori: formData.get('kategori'),
+      nominal: parseInt(formData.get('nominal')),
+      desc: formData.get('keterangan')
+    } : t));
+    setEditFinanceModal({ isOpen: false, data: null });
+  };
+
+  const handleSimpanLaporan = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const formDataObj = Object.fromEntries(formData.entries());
+    
+    let keteranganVal = formDataObj.keterangan || '';
+    
+    // Logika tambahan khusus untuk menggabungkan data ke kolom tabel sederhana (tanpa merusak struktur awal)
+    if (activeMenu === 'lap_kb') {
+      keteranganVal = `Metode: ${formDataObj.metode}${keteranganVal ? ` | Ket: ${keteranganVal}` : ''}`;
+    } else if (activeMenu === 'lap_anc') {
+      keteranganVal = `UK: ${formDataObj.tp_uk} | Dx: ${formDataObj.diagnosa}${keteranganVal ? ` | Ket: ${keteranganVal}` : ''}`;
+    } else if (activeMenu === 'lap_shk') {
+      keteranganVal = `Bayi: ${formDataObj.nama_bayi} | BB: ${formDataObj.bb_bayi || '-'}g${keteranganVal ? ` | Ket: ${keteranganVal}` : ''}`;
+    } else if (activeMenu === 'lap_partus') {
+      keteranganVal = `GPA: ${formDataObj.gpa} | Bayi: ${formDataObj.jk_bayi} (${formDataObj.bbl}g, ${formDataObj.pbl}cm)${keteranganVal ? ` | Ket: ${keteranganVal}` : ''}`;
+    } else if (activeMenu === 'lap_imunisasi') {
+      keteranganVal = `Bayi: ${formDataObj.nama_bayi} | Ibu: ${formDataObj.nama_ibu}${keteranganVal ? ` | Ket: ${keteranganVal}` : ''}`;
+      formDataObj.pasien = formDataObj.nama_bayi; // Mapping fallback untuk tabel standar jika diperlukan
+      formDataObj.tanggal = new Date().toLocaleDateString('id-ID'); // fallback
+    }
+
+    const newData = {
+      id: Date.now(),
+      ...formDataObj, // Menyimpan seluruh field inputan untuk keperluan Export Excel/CSV
+      tanggal: formDataObj.tanggal || new Date().toLocaleDateString('id-ID'),
+      pasien: formDataObj.pasien,
+      keterangan: keteranganVal
+    };
+    
+    setLaporanData({
+      ...laporanData,
+      [activeMenu]: [...(laporanData[activeMenu] || []), newData]
+    });
+    setShowInputLaporanModal(false);
+  };
+
+  const handleExportLaporan = (format) => {
+    const dataToExport = laporanData[activeMenu] || [];
+    if (dataToExport.length === 0) return; // Cegah export jika kosong
+    
+    // Ambil semua kunci unik dari data (termasuk field dinamis ANC/KB)
+    const allKeys = Array.from(dataToExport.reduce((keys, obj) => {
+       Object.keys(obj).forEach(k => { if(k !== 'id') keys.add(k); });
+       return keys;
+    }, new Set(['tanggal', 'pasien', 'keterangan'])));
+    
+    // Buat format CSV
+    const csvRows = dataToExport.map(row => {
+       return allKeys.map(k => {
+         const val = row[k] === 'on' ? 'Ya' : (row[k] || ''); // Format khusus checkbox
+         return `"${val.toString().replace(/"/g, '""')}"`;
+       }).join(',');
+    });
+    const csvContent = [allKeys.join(','), ...csvRows].join('\n');
+    
+    // Trigger download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `Laporan_${activeMenu}_${new Date().toLocaleDateString('id-ID')}.${format === 'excel' ? 'xls' : 'csv'}`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const listPemasukan = ["Pasien Periksa", "Endorsement", "Kerjasama Brand", "Penjualan Obat", "Lain-lain"];
+  const listPengeluaran = ["Beli Obat / Farmasi", "Alat Medis", "Perbaikan Klinik", "Gaji & Operasional", "Lain-lain"];
+
+  return (
+    <div className="flex h-screen bg-slate-100 font-sans">
+      
+      {/* SIDEBAR */}
+      <div className="w-64 bg-teal-900 text-white shadow-md flex flex-col z-20">
+        <div className="p-6 flex items-center gap-2 border-b border-teal-800 bg-teal-950">
+          <HeartPulse className="h-6 w-6 text-amber-400" />
+          <span className="font-bold text-xl text-white">Klinik<span className="text-amber-400">Cerdas</span></span>
+        </div>
+        <div className="flex-1 py-4 overflow-y-auto custom-scrollbar">
+          {menuItems.map((item) => (
+            <div key={item.id}>
+              <button
+                onClick={() => {
+                  if (item.subItems) {
+                    setExpandedMenu(expandedMenu === item.id ? '' : item.id);
+                  } else {
+                    setActiveMenu(item.id);
+                  }
+                }}
+                className={`w-full flex items-center justify-between px-6 py-3 text-left transition ${
+                  (activeMenu === item.id || (item.subItems && expandedMenu === item.id))
+                    ? 'bg-teal-800 text-amber-400 border-l-4 border-amber-400 font-semibold' 
+                    : 'text-teal-100 hover:bg-teal-800/50'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <item.icon size={20} className={activeMenu === item.id ? "text-amber-400" : "text-teal-300"} />
+                  {item.label}
+                </div>
+                {item.subItems && (
+                  expandedMenu === item.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />
+                )}
+              </button>
+              
+              {item.subItems && expandedMenu === item.id && (
+                <div className="bg-teal-950 py-2">
+                  {item.subItems.map(sub => (
+                    <button
+                      key={sub.id}
+                      onClick={() => setActiveMenu(sub.id)}
+                      className={`w-full text-left pl-14 pr-6 py-2 text-sm transition ${
+                        activeMenu === sub.id ? 'text-amber-400 font-bold' : 'text-teal-300 hover:text-white'
+                      }`}
+                    >
+                      {sub.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="p-4 border-t border-teal-800 bg-teal-950">
+          <button onClick={onLogout} className="flex items-center gap-2 text-red-400 hover:text-red-300 w-full px-2 py-2 font-medium transition">
+            <LogOut size={20} /> Keluar Aplikasi
+          </button>
+        </div>
+      </div>
+
+      {/* MAIN CONTENT AREA */}
+      <div className="flex-1 flex flex-col overflow-hidden bg-slate-50">
+        {/* Topbar */}
+        <header className="bg-white h-16 shadow-sm flex items-center justify-between px-8 z-10 border-b border-slate-200">
+          <h1 className="text-xl font-bold text-teal-800 capitalize">
+            {activeMenu.startsWith('lap_') 
+              ? allMenuItems.find(m => m.id === 'laporan').subItems.find(s => s.id === activeMenu).label 
+              : allMenuItems.find(m => m.id === activeMenu)?.label}
+          </h1>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-9 h-9 bg-teal-100 text-teal-700 rounded-full flex items-center justify-center font-bold uppercase border border-teal-200">
+                {user?.nama?.charAt(0) || 'U'}
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="font-bold text-sm text-slate-700 leading-none">{user?.nama}</span>
+                <span className="text-xs text-teal-600 font-medium capitalize mt-1">{user?.role.replace('_', ' ')}</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Content Area */}
+        <main className="flex-1 overflow-auto p-8 relative">
+          
+          {/* ========================================================= */}
+          {/* TAMPILAN ANTRIAN HARI INI */}
+          {activeMenu === 'antrian' && (
+            <div>
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="bg-white p-4 rounded-xl border-l-4 border-blue-500 shadow-sm flex flex-col">
+                  <span className="text-slate-500 text-sm font-bold uppercase">Total Antrian</span>
+                  <span className="text-2xl font-extrabold text-blue-700">{antrianData.length} Orang</span>
+                </div>
+                <div className="bg-white p-4 rounded-xl border-l-4 border-amber-500 shadow-sm flex flex-col">
+                  <span className="text-slate-500 text-sm font-bold uppercase">Menunggu Diperiksa</span>
+                  <span className="text-2xl font-extrabold text-amber-600">{antrianData.filter(a => a.status === 'Menunggu').length} Orang</span>
+                </div>
+                <div className="bg-white p-4 rounded-xl border-l-4 border-teal-500 shadow-sm flex flex-col">
+                  <span className="text-slate-500 text-sm font-bold uppercase">Selesai / Pulang</span>
+                  <span className="text-2xl font-extrabold text-teal-600">{antrianData.filter(a => a.status === 'Selesai').length} Orang</span>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                <div className="flex justify-between items-center mb-6">
+                  <div>
+                    <h2 className="text-lg font-bold text-slate-800">Daftar Antrian Hari Ini</h2>
+                    <p className="text-sm text-slate-500">Pasien yang terdaftar untuk layanan hari ini.</p>
+                  </div>
+                  <button 
+                    onClick={() => setActiveMenu('pasien')}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition shadow-sm flex items-center gap-2"
+                  >
+                    <Users size={16}/> Lihat Database (RM)
+                  </button>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-teal-50 text-teal-800 text-sm border-b border-teal-100">
+                        <th className="p-4 font-bold">No Antrian</th>
+                        <th className="p-4 font-bold">No RM</th>
+                        <th className="p-4 font-bold">Nama Pasien</th>
+                        <th className="p-4 font-bold">Layanan</th>
+                        <th className="p-4 font-bold">Status</th>
+                        <th className="p-4 font-bold">Aksi Medis</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {antrianData.length === 0 ? (
+                        <tr><td colSpan="6" className="p-4 text-center text-slate-500 py-8">Belum ada antrian pasien hari ini.</td></tr>
+                      ) : (
+                        antrianData.map((a, i) => (
+                          <tr key={i} className="border-b hover:bg-slate-50 transition">
+                            <td className="p-4 text-teal-700 font-extrabold">{a.idAntrian}</td>
+                            <td className="p-4 text-slate-600">{a.pasienId}</td>
+                            <td className="p-4 text-slate-800 font-bold">{a.nama}</td>
+                            <td className="p-4 text-slate-600 font-medium">{a.layanan}</td>
+                            <td className="p-4">
+                              <span className={`px-3 py-1 rounded-full text-xs font-bold ${a.status === 'Selesai' ? 'bg-teal-100 text-teal-700' : 'bg-amber-100 text-amber-700'}`}>
+                                {a.status}
+                              </span>
+                            </td>
+                            <td className="p-4">
+                              {user?.role === 'pemilik' || user?.role === 'medis' ? (
+                                <button 
+                                  onClick={() => setShowPeriksaModal({ isOpen: true, data: a, source: 'antrian' })}
+                                  className={`${a.status === 'Selesai' ? 'bg-blue-100 text-blue-700 hover:bg-blue-200' : 'bg-teal-500 text-white hover:bg-teal-600 shadow-sm'} px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition`}
+                                >
+                                  <Stethoscope size={16}/> {a.status === 'Selesai' ? 'Lihat Medis' : 'Periksa Pasien'}
+                                </button>
+                              ) : (
+                                <span className="text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded">Hak Akses Medis</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================= */}
+          {/* TAMPILAN DATA PASIEN (RM) */}
+          {activeMenu === 'pasien' && (
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 border-b pb-4">
+                <div>
+                  <h2 className="text-xl font-bold text-teal-800">Database Rekam Medis (RM)</h2>
+                  <p className="text-sm text-slate-500 mt-1">Kelola data pasien, input database lama, atau daftarkan kunjungan antrian.</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <button 
+                    onClick={() => setShowInputDatabaseModal(true)}
+                    className="bg-amber-400 text-slate-900 px-4 py-2 rounded-lg text-sm font-bold hover:bg-amber-500 flex items-center gap-2 shadow-sm transition"
+                    title="Hanya menambah data ke sistem tanpa masuk antrian hari ini"
+                  >
+                    <Database size={16} /> + Input Pasien Lama (Database)
+                  </button>
+                  <button 
+                    onClick={() => setShowPasienLamaModal(true)}
+                    className="bg-blue-50 text-blue-700 border border-blue-200 px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-100 flex items-center gap-2 transition"
+                  >
+                    <ClipboardList size={16} /> Kunjungan Antrian
+                  </button>
+                  <button 
+                    onClick={() => setShowPasienModal(true)}
+                    className="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-teal-700 flex items-center gap-2 shadow-sm transition"
+                  >
+                    <UserPlus size={16} /> Daftar Pasien Baru
+                  </button>
+                </div>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50 text-slate-600 text-sm border-b">
+                      <th className="p-4 font-bold">No. RM</th>
+                      <th className="p-4 font-bold">Nama Pasien</th>
+                      <th className="p-4 font-bold">Kontak / WA</th>
+                      <th className="p-4 font-bold">Status BPJS</th>
+                      <th className="p-4 font-bold">Kunjungan Terakhir</th>
+                      <th className="p-4 font-bold text-right">Aksi & Medis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pasienData.map((p, i) => (
+                      <tr key={i} className="border-b hover:bg-slate-50 transition text-sm">
+                        <td className="p-4 text-teal-700 font-bold">{p.id}</td>
+                        <td className="p-4 text-slate-800 font-bold">{p.nama}<br/><span className="text-xs text-slate-400 font-normal">NIK: {p.nik}</span></td>
+                        <td className="p-4 text-slate-600">{p.hp || '-'}</td>
+                        <td className="p-4 text-slate-600">{p.noBpjs}</td>
+                        <td className="p-4 text-slate-600">{p.lastVisit}</td>
+                        <td className="p-4 text-right flex justify-end gap-2">
+                          {(user?.role === 'pemilik' || user?.role === 'medis') && (
+                            <button 
+                              onClick={() => setShowPeriksaModal({ isOpen: true, data: p, source: 'rm' })}
+                              className="p-2 text-teal-600 hover:bg-teal-50 rounded-lg transition border border-teal-100 flex items-center gap-1" 
+                              title="Diagnosa Langsung (RM)"
+                            >
+                              <Stethoscope size={16} /> <span className="text-xs font-bold hidden sm:inline">Diagnosa</span>
+                            </button>
+                          )}
+                          <button 
+                            onClick={() => setEditPasienModal({isOpen: true, data: p})}
+                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition border border-blue-100 flex items-center gap-1" 
+                            title="Edit Data Pasien"
+                          >
+                            <Edit size={16} /> <span className="text-xs font-bold hidden sm:inline">Edit</span>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================= */}
+          {/* TAMPILAN KEUANGAN */}
+          {activeMenu === 'keuangan' && (
+            <div>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-teal-500 flex justify-between items-center">
+                  <div>
+                    <p className="text-sm text-slate-500 font-bold">Total Pemasukan</p>
+                    <h3 className="text-3xl font-extrabold text-teal-800 mt-1">
+                      Rp {financeTransactions.filter(t => t.jenis === 'Masuk').reduce((acc, curr) => acc + curr.nominal, 0).toLocaleString('id-ID')}
+                    </h3>
+                  </div>
+                  <button onClick={() => setShowFinanceModal('in')} className="bg-teal-100 text-teal-700 p-4 rounded-full hover:bg-teal-200 transition shadow-sm">
+                    <PlusCircle size={32} />
+                  </button>
+                </div>
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-amber-500 flex justify-between items-center">
+                  <div>
+                    <p className="text-sm text-slate-500 font-bold">Total Pengeluaran</p>
+                    <h3 className="text-3xl font-extrabold text-slate-800 mt-1">
+                      Rp {financeTransactions.filter(t => t.jenis === 'Keluar').reduce((acc, curr) => acc + curr.nominal, 0).toLocaleString('id-ID')}
+                    </h3>
+                  </div>
+                  <button onClick={() => setShowFinanceModal('out')} className="bg-amber-100 text-amber-600 p-4 rounded-full hover:bg-amber-200 transition shadow-sm">
+                    <MinusCircle size={32} />
+                  </button>
+                </div>
+              </div>
+              
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                <h2 className="text-lg font-bold text-slate-800 mb-4 border-b pb-2">Riwayat Transaksi Keuangan</h2>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-slate-50 text-slate-600 text-sm border-b">
+                        <th className="p-4 font-bold">Tanggal</th>
+                        <th className="p-4 font-bold">Kategori</th>
+                        <th className="p-4 font-bold">Keterangan</th>
+                        <th className="p-4 font-bold">Jenis</th>
+                        <th className="p-4 font-bold">Nominal</th>
+                        <th className="p-4 font-bold text-right">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {financeTransactions.map((t) => (
+                        <tr key={t.id} className="border-b hover:bg-slate-50 transition text-sm">
+                          <td className="p-4 text-slate-600">{t.tanggal}</td>
+                          <td className="p-4 font-bold text-slate-800">{t.kategori}</td>
+                          <td className="p-4 text-slate-500">{t.desc}</td>
+                          <td className="p-4">
+                            <span className={`px-3 py-1 rounded-full text-xs font-bold ${t.jenis === 'Masuk' ? 'bg-teal-100 text-teal-700' : 'bg-red-100 text-red-700'}`}>
+                              {t.jenis}
+                            </span>
+                          </td>
+                          <td className={`p-4 font-bold text-lg ${t.jenis === 'Masuk' ? 'text-teal-600' : 'text-red-500'}`}>
+                            {t.jenis === 'Masuk' ? '+' : '-'} Rp {t.nominal.toLocaleString('id-ID')}
+                          </td>
+                          <td className="p-4 text-right">
+                            <button
+                              onClick={() => setEditFinanceModal({ isOpen: true, data: t })}
+                              className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="Edit Transaksi"
+                            >
+                              <Edit size={16} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================= */}
+          {/* TAMPILAN LAPORAN */}
+          {activeMenu.startsWith('lap_') && (
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 min-h-[400px]">
+              <div className="flex justify-between items-center mb-6 border-b pb-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-teal-800">{allMenuItems.find(m => m.id === 'laporan').subItems.find(s => s.id === activeMenu).label}</h2>
+                  <p className="text-sm text-slate-500 mt-1">Data rekapitulasi untuk pelaporan klinik dan instansi.</p>
+                </div>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => handleExportLaporan('csv')}
+                    className="bg-slate-50 text-slate-700 border border-slate-200 px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-100 transition shadow-sm flex items-center gap-2"
+                  >
+                    <Download size={16}/> CSV
+                  </button>
+                  <button 
+                    onClick={() => handleExportLaporan('excel')}
+                    className="bg-green-50 text-green-700 border border-green-200 px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-100 transition shadow-sm flex items-center gap-2"
+                  >
+                    <Download size={16}/> Excel
+                  </button>
+                  <button 
+                    onClick={() => setShowInputLaporanModal(true)}
+                    className="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-teal-700 transition shadow-sm flex items-center gap-2"
+                  >
+                    <PlusCircle size={16}/> Input Data {allMenuItems.find(m => m.id === 'laporan').subItems.find(s => s.id === activeMenu).label.replace('Laporan ', '')}
+                  </button>
+                </div>
+              </div>
+              
+              {activeMenu === 'lap_imunisasi' ? (
+                /* --- TABEL KHUSUS REKAP IMUNISASI (LEBAR) --- */
+                <div className="overflow-x-auto pb-4">
+                  <table className="w-full text-left border-collapse text-xs whitespace-nowrap">
+                    <thead>
+                      <tr className="bg-purple-50 text-purple-900 border-b border-purple-200">
+                        <th className="p-3 font-bold border-r border-purple-100">No</th>
+                        <th className="p-3 font-bold border-r border-purple-100">Nama Bayi</th>
+                        <th className="p-3 font-bold border-r border-purple-100">No RM</th>
+                        <th className="p-3 font-bold border-r border-purple-100">Tgl Lahir</th>
+                        <th className="p-3 font-bold border-r border-purple-100">Nama Ibu</th>
+                        <th className="p-3 font-bold border-r border-purple-100">HB0</th>
+                        <th className="p-3 font-bold border-r border-purple-100">BCG</th>
+                        <th className="p-3 font-bold border-r border-purple-100">Polio 1</th>
+                        <th className="p-3 font-bold border-r border-purple-100">DPT 1</th>
+                        <th className="p-3 font-bold border-r border-purple-100">Polio 2</th>
+                        <th className="p-3 font-bold border-r border-purple-100">DPT 2</th>
+                        <th className="p-3 font-bold border-r border-purple-100">Polio 3</th>
+                        <th className="p-3 font-bold border-r border-purple-100">DPT 3</th>
+                        <th className="p-3 font-bold border-r border-purple-100">Polio 4</th>
+                        <th className="p-3 font-bold border-r border-purple-100">IPV</th>
+                        <th className="p-3 font-bold border-r border-purple-100">Campak</th>
+                        <th className="p-3 font-bold border-r border-purple-100">DPT Baduta</th>
+                        <th className="p-3 font-bold">Campak Baduta</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(laporanData[activeMenu] || []).length === 0 ? (
+                        <tr><td colSpan="18" className="p-8 text-center text-slate-400 text-sm">Belum ada data imunisasi. Silakan input data baru.</td></tr>
+                      ) : (
+                        (laporanData[activeMenu] || []).map((l, i) => (
+                          <tr key={i} className="border-b hover:bg-slate-50 transition">
+                            <td className="p-3 border-r border-slate-100">{i+1}</td>
+                            <td className="p-3 font-bold text-slate-800 border-r border-slate-100">{l.nama_bayi}</td>
+                            <td className="p-3 border-r border-slate-100">{l.no_rm_bayi}</td>
+                            <td className="p-3 border-r border-slate-100">{l.tgl_lahir_bayi}</td>
+                            <td className="p-3 border-r border-slate-100">{l.nama_ibu}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_hb0 || '-'}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_bcg || '-'}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_polio1 || '-'}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_dpt1 || '-'}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_polio2 || '-'}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_dpt2 || '-'}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_polio3 || '-'}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_dpt3 || '-'}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_polio4 || '-'}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_ipv || '-'}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_campak || '-'}</td>
+                            <td className="p-3 border-r border-slate-100 text-teal-600 font-bold">{l.v_dpt_baduta || '-'}</td>
+                            <td className="p-3 text-teal-600 font-bold">{l.v_campak_baduta || '-'}</td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                /* --- TABEL STANDAR UNTUK LAPORAN LAINNYA --- */
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-slate-50 text-slate-600 text-sm border-b">
+                        <th className="p-4 font-bold">Tanggal</th>
+                        <th className="p-4 font-bold">Nama Pasien / Klien</th>
+                        <th className="p-4 font-bold">Keterangan / Hasil Pemeriksaan</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(laporanData[activeMenu] || []).length === 0 ? (
+                        <tr><td colSpan="3" className="p-8 text-center text-slate-400">Belum ada data di laporan ini.</td></tr>
+                      ) : (
+                        (laporanData[activeMenu] || []).map((l, i) => (
+                          <tr key={i} className="border-b hover:bg-slate-50 transition text-sm">
+                            <td className="p-4 text-slate-600">{l.tanggal}</td>
+                            <td className="p-4 font-bold text-slate-800">{l.pasien}</td>
+                            <td className="p-4 text-slate-600">{l.keterangan}</td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ========================================================= */}
+          {/* TAMPILAN HRD & KARYAWAN */}
+          {activeMenu === 'hrd' && (
+            <div>
+              <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">Statistik Kehadiran (Hari Ini)</h3>
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-4">
+                  <div className="bg-blue-100 p-3 rounded-xl text-blue-600"><Users size={28}/></div>
+                  <div>
+                    <p className="text-xs text-slate-500 font-bold uppercase">Total Karyawan</p>
+                    <h3 className="text-2xl font-extrabold text-slate-800">{karyawanData.length} Orang</h3>
+                  </div>
+                </div>
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-4">
+                  <div className="bg-teal-100 p-3 rounded-xl text-teal-600"><CheckCircle2 size={28}/></div>
+                  <div>
+                    <p className="text-xs text-slate-500 font-bold uppercase">Hadir Hari Ini</p>
+                    <h3 className="text-2xl font-extrabold text-teal-700">{karyawanData.filter(k => k.statusAbsen === 'Hadir').length} Orang</h3>
+                  </div>
+                </div>
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-4">
+                  <div className="bg-amber-100 p-3 rounded-xl text-amber-600"><Clock size={28}/></div>
+                  <div>
+                    <p className="text-xs text-slate-500 font-bold uppercase">Cuti / Izin</p>
+                    <h3 className="text-2xl font-extrabold text-amber-700">{karyawanData.filter(k => k.statusAbsen !== 'Hadir').length} Orang</h3>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 mt-2">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 border-b pb-4">
+                  <div>
+                    <h2 className="text-lg font-bold text-teal-800">Daftar Karyawan & Absensi</h2>
+                    <p className="text-sm text-slate-500">Kelola pendaftaran karyawan, jadwal jaga, dan kehadiran harian.</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {user?.role === 'pemilik' && (
+                      <>
+                        <button 
+                          onClick={handleExportAbsensi}
+                          className="bg-green-50 text-green-700 border border-green-200 px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-100 flex items-center gap-2 transition"
+                          title="Download Laporan Excel/CSV"
+                        >
+                          <Download size={16}/> Export Absensi
+                        </button>
+                        <button 
+                          onClick={() => setShowAbsensiSusulanModal(true)}
+                          className="bg-amber-400 text-slate-900 px-4 py-2 rounded-lg text-sm font-bold hover:bg-amber-500 flex items-center gap-2 shadow-sm transition"
+                        >
+                          <Calendar size={16}/> Input Susulan / Rekap
+                        </button>
+                      </>
+                    )}
+                    <button 
+                      onClick={() => setShowKaryawanModal(true)}
+                      className="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-teal-700 flex items-center gap-2 shadow-sm transition"
+                    >
+                      <UserPlus size={16} /> Tambah Karyawan
+                    </button>
+                  </div>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-slate-50 text-slate-600 text-sm border-b">
+                        <th className="p-4 font-bold">ID</th>
+                        <th className="p-4 font-bold">Nama Karyawan</th>
+                        <th className="p-4 font-bold">Jabatan / Posisi</th>
+                        <th className="p-4 font-bold">Jadwal Jaga</th>
+                        <th className="p-4 font-bold">Status Kehadiran</th>
+                        {user?.role === 'pemilik' && (
+                          <th className="p-4 font-bold border-l border-slate-200">Laporan Presensi & Lembur (Bulan Ini)</th>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {karyawanData.map((k, i) => (
+                        <tr key={i} className="border-b hover:bg-slate-50 transition">
+                          <td className="p-4 text-slate-500 font-bold">K-{k.id}</td>
+                          <td className="p-4 text-slate-800 font-bold">{k.nama}<br/><span className="text-xs text-slate-500 font-normal">{k.kontak}</span></td>
+                          <td className="p-4 text-slate-600">{k.posisi}</td>
+                          <td className="p-4 text-slate-600">{k.jadwal}</td>
+                          <td className="p-4">
+                            <select 
+                              className={`text-sm font-bold px-3 py-1.5 rounded-lg outline-none cursor-pointer transition ${k.statusAbsen === 'Hadir' ? 'bg-teal-100 text-teal-700 hover:bg-teal-200' : 'bg-amber-100 text-amber-700 hover:bg-amber-200'}`}
+                              defaultValue={k.statusAbsen}
+                              onChange={(e) => {
+                                const newStatus = e.target.value;
+                                setKaryawanData(karyawanData.map(item => item.id === k.id ? { ...item, statusAbsen: newStatus } : item));
+                              }}
+                            >
+                              <option value="Hadir">Hadir</option>
+                              <option value="Cuti">Cuti</option>
+                              <option value="Sakit">Sakit</option>
+                              <option value="Izin">Izin</option>
+                            </select>
+                          </td>
+                          {user?.role === 'pemilik' && (
+                            <td className="p-4 border-l border-slate-100 bg-slate-50/50">
+                              <div className="grid grid-cols-2 gap-2 min-w-[220px]">
+                                <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm" title="Total Hari Kehadiran">
+                                  <div className="w-8 h-8 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold text-sm">H</div>
+                                  <div className="flex flex-col leading-none">
+                                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wide">Hadir</span>
+                                    <span className="text-base font-extrabold text-slate-700 mt-0.5">{k.hadirTotal || 0} <span className="font-normal text-xs text-slate-500">hr</span></span>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm" title="Total Hari Cuti/Izin/Sakit">
+                                  <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm">C</div>
+                                  <div className="flex flex-col leading-none">
+                                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wide">Cuti/Izin</span>
+                                    <span className="text-base font-extrabold text-slate-700 mt-0.5">{k.cutiTotal || 0} <span className="font-normal text-xs text-slate-500">hr</span></span>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm col-span-2" title="Total Akumulasi Jam Lembur">
+                                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold"><Clock size={16}/></div>
+                                  <div className="flex flex-col leading-none">
+                                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wide">Akumulasi Lembur</span>
+                                    <span className="text-base font-extrabold text-slate-700 mt-0.5">{k.lemburJam || 0} <span className="font-normal text-xs text-slate-500">Jam bulan ini</span></span>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================= */}
+          {/* TAMPILAN KOMUNIKASI & REMINDER */}
+          {activeMenu === 'komunikasi' && (
+             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+              <h2 className="text-xl font-bold text-teal-800 mb-2">Notifikasi & Reminder Pasien</h2>
+              <p className="text-sm text-slate-500 mb-6 border-b pb-4">Daftar jadwal kontrol pasien (Terhubung otomatis dari form Periksa Dokter). Anda bisa edit jadwal atau langsung hubungi via WA.</p>
+              
+              <div className="space-y-4">
+                {reminderData.map((reminder) => (
+                  <div key={reminder.id} className="flex flex-col md:flex-row items-start md:items-center justify-between p-5 border rounded-xl border-slate-200 hover:border-teal-300 transition bg-slate-50">
+                    <div className="flex gap-4 items-center mb-4 md:mb-0">
+                      <div className="bg-teal-100 p-3 rounded-full text-teal-600 hidden md:block">
+                        <Calendar size={24} />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-800 text-lg">{reminder.nama} <span className="text-sm text-slate-500 font-normal">({reminder.noWa})</span></h4>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-sm font-medium text-slate-700">{reminder.jenis}</span>
+                          <span className="text-xs px-2.5 py-1 bg-amber-100 text-amber-800 font-bold rounded-full border border-amber-200">{reminder.waktu}</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+                      <span className={`text-xs font-bold px-3 py-1 rounded-full ${reminder.status === 'Sudah Dihubungi' ? 'bg-teal-100 text-teal-700' : 'bg-slate-200 text-slate-600'}`}>
+                        {reminder.status}
+                      </span>
+                      <button 
+                        onClick={() => setEditReminderModal({isOpen: true, data: reminder})}
+                        className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="Edit/Update Jadwal"
+                      >
+                        <Edit size={18} />
+                      </button>
+                      <button 
+                        onClick={() => handleKirimWA(reminder)}
+                        className="bg-teal-500 hover:bg-teal-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold transition flex items-center gap-2 shadow-sm"
+                      >
+                        <MessageSquare size={16} /> Hubungi via WA
+                      </button>
+                    </div>
+                  </div>
+                ))}
+                {reminderData.length === 0 && (
+                  <div className="text-center py-8 text-slate-400">Belum ada jadwal reminder saat ini.</div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================= */}
+          {/* TAMPILAN HAK AKSES */}
+          {activeMenu === 'hak_akses' && (
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+              <div className="flex justify-between items-center mb-6 border-b pb-4">
+                <div>
+                  <h2 className="text-xl font-bold text-teal-800">Pengaturan Hak Akses Karyawan</h2>
+                  <p className="text-sm text-slate-500 mt-1">Kelola daftar akun dan hak akses masuk ke dalam sistem KlinikCerdas.</p>
+                </div>
+                <button 
+                  onClick={() => setAksesModal({ isOpen: true, mode: 'add', data: null })}
+                  className="bg-teal-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-teal-700 flex items-center gap-2 shadow-sm transition"
+                >
+                  <UserPlus size={18} /> Tambah Akun
+                </button>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50 text-slate-600 text-sm border-b">
+                      <th className="p-4 font-bold">Nama Akun</th>
+                      <th className="p-4 font-bold">Email Login</th>
+                      <th className="p-4 font-bold">Role / Hak Akses</th>
+                      <th className="p-4 font-bold text-right">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {usersData.map((k) => (
+                      <tr key={k.id} className="border-b hover:bg-slate-50 transition">
+                        <td className="p-4 text-slate-800 font-bold">{k.nama}</td>
+                        <td className="p-4 text-blue-600">{k.email}</td>
+                        <td className="p-4">
+                          <span className="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full capitalize border border-amber-200">
+                            {k.role.replace('_', ' ')}
+                          </span>
+                        </td>
+                        <td className="p-4 text-right">
+                          <div className="flex justify-end gap-2">
+                            <button 
+                              onClick={() => setAksesModal({ isOpen: true, mode: 'edit', data: k })}
+                              className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="Edit Akun"
+                            >
+                              <Edit size={16} />
+                            </button>
+                            {k.role !== 'pemilik' && (
+                              <button 
+                                onClick={() => handleDeleteAkses(k.id)}
+                                className="p-2 text-red-500 hover:bg-red-100 rounded-lg transition" title="Hapus Akun"
+                              >
+                                <Trash2 size={16} />
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+        </main>
+
+        {/* ========================================================= */}
+        {/* MODAL INPUT LAPORAN */}
+        {showInputLaporanModal && (
+          <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 overflow-y-auto">
+            <div className={`bg-white rounded-2xl w-full ${['lap_kb', 'lap_anc', 'lap_shk', 'lap_partus'].includes(activeMenu) ? 'max-w-4xl' : activeMenu === 'lap_imunisasi' ? 'max-w-6xl' : 'max-w-md'} shadow-2xl overflow-hidden border-t-4 border-teal-500 my-8`}>
+              <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2">Input Data {allMenuItems.find(m => m.id === 'laporan').subItems.find(s => s.id === activeMenu).label}</h3>
+                <button onClick={() => setShowInputLaporanModal(false)} className="text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
+              </div>
+              <form onSubmit={handleSimpanLaporan} className="p-6">
+                
+                {activeMenu === 'lap_anc' ? (
+                  /* --- FORM KHUSUS LAPORAN ANC --- */
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-xl font-bold text-slate-800">Formulir Pemeriksaan ANC</h4>
+                      <p className="text-sm text-slate-500">Masukkan data pemeriksaan pasien.</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Cari Pasien</label>
+                      <input name="pasien" required placeholder="Masukkan Nama atau NIK..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Periksa <span className="text-red-500">*</span></label>
+                        <input name="tanggal" type="date" required defaultValue={new Date().toISOString().split('T')[0]} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">HPHT <span className="text-red-500">*</span></label>
+                        <input name="hpht" type="date" required className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">TP / UK <span className="text-red-500">*</span></label>
+                        <input name="tp_uk" required placeholder="Contoh: 28 Minggu" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Diagnosa (Dx) <span className="text-red-500">*</span></label>
+                        <input name="diagnosa" required placeholder="Diagnosa medis..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">KSPR</label>
+                        <input name="kspr" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">BB / TB</label>
+                        <input name="bb_tb" placeholder="Contoh: 60kg / 155cm" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">LILA</label>
+                        <input name="lila" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">HB</label>
+                        <input name="hb" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">Golongan Darah</label>
+                         <select name="gol_darah" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih</option><option value="A">A</option><option value="B">B</option><option value="AB">AB</option><option value="O">O</option>
+                         </select>
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">Albumin (ALB)</label>
+                         <select name="albumin" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih</option><option value="Negatif">Negatif</option><option value="Positif">Positif</option>
+                         </select>
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">HIV</label>
+                         <select name="hiv" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih</option><option value="Non-Reaktif">Non-Reaktif</option><option value="Reaktif">Reaktif</option>
+                         </select>
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">Hepatitis B</label>
+                         <select name="hepatitis_b" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih</option><option value="Non-Reaktif">Non-Reaktif</option><option value="Reaktif">Reaktif</option>
+                         </select>
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">Sifilis</label>
+                         <select name="sifilis" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih</option><option value="Non-Reaktif">Non-Reaktif</option><option value="Reaktif">Reaktif</option>
+                         </select>
+                      </div>
+                      <div className="flex items-center pt-6">
+                         <label className="flex items-center gap-2 cursor-pointer">
+                           <input type="checkbox" name="buku_kia" className="w-5 h-5 accent-teal-600 cursor-pointer" />
+                           <span className="text-sm font-bold text-slate-700">Menerima Buku KIA?</span>
+                         </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Keterangan Tambahan</label>
+                      <textarea name="keterangan" rows="3" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none"></textarea>
+                    </div>
+                  </div>
+                ) : activeMenu === 'lap_partus' ? (
+                  /* --- FORM KHUSUS LAPORAN PARTUS --- */
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-xl font-bold text-slate-800">Formulir Persalinan</h4>
+                      <p className="text-sm text-slate-500">Masukkan data persalinan pasien.</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Cari Pasien (Ibu Bersalin)</label>
+                      <input name="pasien" required placeholder="Masukkan Nama atau NIK..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Partus <span className="text-red-500">*</span></label>
+                        <input name="tanggal" type="date" required defaultValue={new Date().toISOString().split('T')[0]} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">GPA (Gravida-Partus-Abortus) <span className="text-red-500">*</span></label>
+                        <input name="gpa" required placeholder="Contoh: G1P0A0" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">UK (Usia Kehamilan - Minggu) <span className="text-red-500">*</span></label>
+                        <input name="uk" required placeholder="Contoh: 39" type="number" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">BBL (Berat Badan Lahir - Gram) <span className="text-red-500">*</span></label>
+                        <input name="bbl" required placeholder="Contoh: 3200" type="number" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">PBL (Panjang Badan Lahir - Cm) <span className="text-red-500">*</span></label>
+                        <input name="pbl" required placeholder="Contoh: 49" type="number" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">Jenis Kelamin Bayi <span className="text-red-500">*</span></label>
+                         <select name="jk_bayi" required className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih Jenis Kelamin</option>
+                           <option value="Laki-laki">Laki-laki</option>
+                           <option value="Perempuan">Perempuan</option>
+                         </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h5 className="text-lg font-bold text-slate-800 border-b pb-2 mb-4">Kondisi & Tindakan</h5>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-bold text-slate-700 mb-1">Keadaan Umum (K/U) Ibu</label>
+                          <input name="ku_ibu" placeholder="Contoh: Baik" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                        </div>
+                        <div>
+                           <label className="block text-sm font-bold text-slate-700 mb-1">Vitamin K</label>
+                           <select name="vitamin_k" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                             <option value="Tidak">Tidak</option>
+                             <option value="Ya">Ya</option>
+                           </select>
+                        </div>
+                        <div>
+                           <label className="block text-sm font-bold text-slate-700 mb-1">HB 0</label>
+                           <select name="hb0" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                             <option value="Tidak">Tidak</option>
+                             <option value="Ya">Ya</option>
+                           </select>
+                        </div>
+                        <div>
+                           <label className="block text-sm font-bold text-slate-700 mb-1">IMD (Inisiasi Menyusui Dini)</label>
+                           <select name="imd" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                             <option value="Tidak">Tidak</option>
+                             <option value="Ya">Ya</option>
+                           </select>
+                        </div>
+                        <div>
+                           <label className="block text-sm font-bold text-slate-700 mb-1">Vitamin A</label>
+                           <select name="vitamin_a" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                             <option value="Tidak">Tidak</option>
+                             <option value="Ya">Ya</option>
+                           </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-bold text-slate-700 mb-1">KB Pasca Salin</label>
+                          <input name="kb_pasca_salin" placeholder="Contoh: IUD" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Keterangan Tambahan</label>
+                      <textarea name="keterangan" rows="3" placeholder="Keterangan kondisi ibu atau bayi..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none"></textarea>
+                    </div>
+                  </div>
+                ) : activeMenu === 'lap_shk' ? (
+                  /* --- FORM KHUSUS LAPORAN SHK --- */
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-xl font-bold text-slate-800">Formulir Skrining Bayi</h4>
+                      <p className="text-sm text-slate-500">Masukkan data skrining hipotiroid kongenital bayi.</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Cari Data Ibu (Pasien)</label>
+                      <input name="pasien" required placeholder="Masukkan Nama atau NIK Ibu..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Kunjungan <span className="text-red-500">*</span></label>
+                        <input name="tanggal" type="date" required defaultValue={new Date().toISOString().split('T')[0]} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Nama Bayi <span className="text-red-500">*</span></label>
+                        <input name="nama_bayi" required placeholder="Nama lengkap bayi" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Lahir Bayi <span className="text-red-500">*</span></label>
+                        <input name="tgl_lahir_bayi" type="date" required className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Faskes Bayi Lahir</label>
+                        <input name="faskes_lahir" placeholder="Tempat bayi dilahirkan" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">Jenis Kelamin <span className="text-red-500">*</span></label>
+                         <select name="jenis_kelamin" required className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih</option>
+                           <option value="Laki-laki">Laki-laki</option>
+                           <option value="Perempuan">Perempuan</option>
+                           <option value="Tidak Jelas">Tidak Jelas</option>
+                         </select>
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">Kembar (Tunggal/Kembar)</label>
+                         <select name="kembar" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih</option>
+                           <option value="Tunggal">Tunggal</option>
+                           <option value="Kembar 1">Kembar 1</option>
+                           <option value="Kembar 2">Kembar 2</option>
+                         </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Berat Badan Bayi (Gram)</label>
+                        <input name="bb_bayi" type="number" placeholder="Contoh: 3000" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Panjang Badan Bayi (cm)</label>
+                        <input name="pb_bayi" type="number" placeholder="Contoh: 49" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Umur Kehamilan (Minggu)</label>
+                        <input name="umur_kehamilan" type="number" placeholder="Contoh: 39" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">Kelainan Bawaan</label>
+                         <select name="kelainan_bawaan" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih</option>
+                           <option value="Tidak Ada">Tidak Ada</option>
+                           <option value="Ada">Ada</option>
+                         </select>
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">Bayi Mendapat Pengobatan?</label>
+                         <select name="pengobatan_bayi" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih</option>
+                           <option value="Tidak">Tidak</option>
+                           <option value="Ya">Ya</option>
+                         </select>
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">Ibu Konsumsi Obat Tiroid?</label>
+                         <select name="obat_tiroid_ibu" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih</option>
+                           <option value="Tidak">Tidak</option>
+                           <option value="Ya">Ya</option>
+                         </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h5 className="text-lg font-bold text-slate-800 border-b pb-2 mb-4">Data Sampel</h5>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-bold text-slate-700 mb-1">Faskes Pengambil Sampel</label>
+                          <input name="faskes_sampel" placeholder="Klinik / RS..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Pengambilan Sampel <span className="text-red-500">*</span></label>
+                          <input name="tgl_sampel" type="date" required className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white" />
+                        </div>
+                        <div>
+                           <label className="block text-sm font-bold text-slate-700 mb-1">Lokasi Darah</label>
+                           <select name="lokasi_darah" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                             <option value="">Pilih (Tu/Ve)</option>
+                             <option value="Tumit (Tu)">Tumit (Tu)</option>
+                             <option value="Vena (Ve)">Vena (Ve)</option>
+                           </select>
+                        </div>
+                        <div>
+                           <label className="block text-sm font-bold text-slate-700 mb-1">Transfusi Darah?</label>
+                           <select name="transfusi" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                             <option value="">Pilih</option>
+                             <option value="Tidak">Tidak</option>
+                             <option value="Ya">Ya</option>
+                           </select>
+                        </div>
+                        <div className="md:col-span-2">
+                          <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Transfusi (Bila Ada)</label>
+                          <input name="tgl_transfusi" type="date" className="w-full md:w-1/2 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Keterangan Tambahan</label>
+                      <textarea name="keterangan" rows="3" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none"></textarea>
+                    </div>
+                  </div>
+                ) : activeMenu === 'lap_imunisasi' ? (
+                  /* --- FORM KHUSUS LAPORAN IMUNISASI --- */
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-xl font-bold text-slate-800">Input Data Imunisasi Baru</h4>
+                      <p className="text-sm text-slate-500">Silakan isi data bayi dan ibu, kemudian isi tanggal vaksin yang telah diberikan.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                       {/* Kiri: Identitas Bayi */}
+                       <div className="space-y-4">
+                          <h5 className="font-bold text-teal-700 border-b pb-2 flex items-center gap-2"><Users size={16}/> Identitas Bayi</h5>
+                          <div className="grid grid-cols-2 gap-4">
+                              <div className="col-span-2"><label className="block text-xs font-bold text-slate-700 mb-1">No RM (📋)</label><input name="no_rm_bayi" placeholder="Nomor rekam medis" className="w-full border rounded p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500" /></div>
+                              <div className="col-span-2"><label className="block text-xs font-bold text-slate-700 mb-1">Nama Bayi (👶) *</label><input name="nama_bayi" required placeholder="Nama lengkap bayi" className="w-full border rounded p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500" /></div>
+                              <div className="col-span-2"><label className="block text-xs font-bold text-slate-700 mb-1">NIK Bayi (🆔)</label><input name="nik_bayi" placeholder="Nomor identitas bayi" className="w-full border rounded p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500" /></div>
+                              <div>
+                                 <label className="block text-xs font-bold text-slate-700 mb-1">Jenis Kelamin *</label>
+                                 <select name="jk_bayi" required className="w-full border rounded p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 bg-white">
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="L">Laki-laki</option>
+                                    <option value="P">Perempuan</option>
+                                 </select>
+                              </div>
+                              <div><label className="block text-xs font-bold text-slate-700 mb-1">Tgl Lahir Bayi *</label><input type="date" name="tgl_lahir_bayi" required className="w-full border rounded p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500" /></div>
+                          </div>
+                       </div>
+                       
+                       {/* Kanan: Identitas Ibu */}
+                       <div className="space-y-4">
+                          <h5 className="font-bold text-teal-700 border-b pb-2 flex items-center gap-2"><Users size={16}/> Identitas Ibu & Keluarga</h5>
+                          <div className="grid grid-cols-1 gap-4">
+                              <div><label className="block text-xs font-bold text-slate-700 mb-1">Nama Ibu (👩) *</label><input name="nama_ibu" required placeholder="Nama lengkap ibu" className="w-full border rounded p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500" /></div>
+                              <div><label className="block text-xs font-bold text-slate-700 mb-1">NIK Ibu (🆔)</label><input name="nik_ibu" placeholder="Nomor identitas ibu" className="w-full border rounded p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500" /></div>
+                              <div><label className="block text-xs font-bold text-slate-700 mb-1">No HP (📱)</label><input name="hp_ibu" placeholder="08xxxxxxxxxx" className="w-full border rounded p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500" /></div>
+                              <div><label className="block text-xs font-bold text-slate-700 mb-1">Alamat Lengkap (🏠)</label><textarea name="alamat_ibu" rows="2" placeholder="Alamat lengkap keluarga" className="w-full border rounded p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500"></textarea></div>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div>
+                      <h5 className="font-bold text-slate-800 border-b pb-2 mb-4 mt-2">Jadwal & Tanggal Pemberian Vaksin</h5>
+                      
+                      <div className="bg-blue-50 p-5 rounded-lg mb-4 border border-blue-100">
+                         <h6 className="text-xs font-extrabold text-blue-800 mb-4 uppercase flex items-center gap-2"><span className="bg-blue-600 text-white w-5 h-5 rounded-full flex items-center justify-center">1</span> IMUNISASI DASAR</h6>
+                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {['v_hb0', 'v_bcg', 'v_polio1', 'v_dpt1', 'v_pcv1', 'v_polio2', 'v_dpt2', 'v_pcv2', 'v_polio3', 'v_dpt3', 'v_polio4', 'v_ipv', 'v_campak', 'v_je', 'v_pcv3', 'v_dpt_baduta', 'v_campak_baduta'].map(name => (
+                               <div key={name}>
+                                 <label className="block text-[10px] font-bold text-slate-600 mb-1 uppercase">{name.replace('v_', '').replace('_', ' ')}</label>
+                                 <input type="date" name={name} className="w-full border border-blue-200 rounded p-2 text-xs focus:ring-2 focus:ring-blue-500 outline-none bg-white" />
+                               </div>
+                            ))}
+                         </div>
+                      </div>
+
+                      <div className="bg-purple-50 p-5 rounded-lg mb-4 border border-purple-100">
+                         <h6 className="text-xs font-extrabold text-purple-800 mb-4 uppercase flex items-center gap-2"><span className="bg-purple-600 text-white w-5 h-5 rounded-full flex items-center justify-center">2</span> IMUNISASI LANJUTAN</h6>
+                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {['v_ipv2', 'v_ipv3', 'v_pcv4', 'v_ipv4'].map(name => (
+                               <div key={name}>
+                                 <label className="block text-[10px] font-bold text-slate-600 mb-1 uppercase">{name.replace('v_', '').replace('_', ' ')}</label>
+                                 <input type="date" name={name} className="w-full border border-purple-200 rounded p-2 text-xs focus:ring-2 focus:ring-purple-500 outline-none bg-white" />
+                               </div>
+                            ))}
+                         </div>
+                      </div>
+
+                      <div className="bg-orange-50 p-5 rounded-lg border border-orange-100">
+                         <h6 className="text-xs font-extrabold text-orange-800 mb-4 uppercase flex items-center gap-2"><span className="bg-orange-600 text-white w-5 h-5 rounded-full flex items-center justify-center">3</span> IMUNISASI ROTAVIRUS</h6>
+                         <div className="grid grid-cols-3 gap-4">
+                            {['v_rotavirus1', 'v_rotavirus2', 'v_rotavirus3'].map(name => (
+                               <div key={name}>
+                                 <label className="block text-[10px] font-bold text-slate-600 mb-1 uppercase">{name.replace('v_', '').replace('_', ' ')}</label>
+                                 <input type="date" name={name} className="w-full border border-orange-200 rounded p-2 text-xs focus:ring-2 focus:ring-orange-500 outline-none bg-white" />
+                               </div>
+                            ))}
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : activeMenu === 'lap_kb' ? (
+                  /* --- FORM KHUSUS LAPORAN KB --- */
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-xl font-bold text-slate-800">Formulir Pelayanan KB</h4>
+                      <p className="text-sm text-slate-500">Masukkan data pelayanan akseptor KB.</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Cari Pasien (Istri)</label>
+                      <input name="pasien" required placeholder="Masukkan Nama atau NIK..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Kunjungan <span className="text-red-500">*</span></label>
+                        <input name="tanggal" type="date" required defaultValue={new Date().toISOString().split('T')[0]} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white" />
+                      </div>
+                      <div>
+                         <label className="block text-sm font-bold text-slate-700 mb-1">Metode Kontrasepsi <span className="text-red-500">*</span></label>
+                         <select name="metode" required className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                           <option value="">Pilih Metode</option>
+                           <option value="IUD">IUD</option>
+                           <option value="Implan">Implan</option>
+                           <option value="Suntik">Suntik</option>
+                           <option value="Pil">Pil</option>
+                           <option value="Kondom">Kondom</option>
+                         </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Jumlah Anak Hidup</label>
+                        <input name="jml_anak" type="number" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Usia Anak Terakhir</label>
+                        <input name="usia_anak" placeholder="Contoh: 2 Tahun 5 Bulan" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                    </div>
+
+                    <div>
+                      <h5 className="text-lg font-bold text-slate-800 border-b pb-2 mb-4">Kondisi Kesehatan</h5>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-bold text-slate-700 mb-1">Keadaan Anemia</label>
+                          <input name="anemia" placeholder="Keterangan anemia..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-bold text-slate-700 mb-1">LILA &lt; 23.5 cm</label>
+                          <input name="lila" placeholder="Keterangan LILA..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-bold text-slate-700 mb-1">Penyakit Kronis</label>
+                          <input name="kronis" placeholder="Riwayat penyakit..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-bold text-slate-700 mb-1">Infeksi Menular Seksual (IMS)</label>
+                          <input name="ims" placeholder="Riwayat IMS..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Keterangan Tambahan</label>
+                      <textarea name="keterangan" rows="3" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none"></textarea>
+                    </div>
+                  </div>
+                ) : (
+                  /* --- FORM STANDAR UNTUK LAPORAN LAINNYA --- */
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal</label>
+                      <input name="tanggal" type="date" required defaultValue={new Date().toISOString().split('T')[0]} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Nama Pasien / Klien</label>
+                      <input name="pasien" required placeholder="Nama Pasien" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Keterangan / Hasil</label>
+                      <textarea name="keterangan" rows="3" required placeholder="Catatan hasil pelaporan..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none"></textarea>
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex justify-end gap-3 mt-8 border-t pt-4">
+                  <button type="button" onClick={() => setShowInputLaporanModal(false)} className="px-5 py-2 text-sm font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                  <button type="submit" className="px-5 py-2 text-sm text-white bg-teal-600 rounded-lg hover:bg-teal-700 font-bold shadow-sm">Simpan Laporan</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* MODAL KARYAWAN BARU */}
+        {showKaryawanModal && (
+          <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden border-t-4 border-teal-500">
+              <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-teal-600 text-white">
+                <h3 className="font-bold text-lg flex items-center gap-2"><UserPlus size={20}/> Pendaftaran Karyawan Baru</h3>
+                <button onClick={() => setShowKaryawanModal(false)} className="text-white/80 hover:text-white text-xl">&times;</button>
+              </div>
+              <form onSubmit={handleSimpanKaryawan} className="p-6">
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nama Lengkap Karyawan</label>
+                    <input name="nama" required placeholder="Contoh: dr. Amanda" className="w-full border border-slate-300 rounded-lg p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Jabatan / Posisi</label>
+                    <input name="posisi" required placeholder="Contoh: Perawat / Bidan" className="w-full border border-slate-300 rounded-lg p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nomor Kontak / WA</label>
+                    <input name="kontak" required placeholder="08xxxxxxxxxx" className="w-full border border-slate-300 rounded-lg p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Jadwal Jaga / Shift</label>
+                    <select name="jadwal" className="w-full border border-slate-300 rounded-lg p-2 text-sm outline-none focus:ring-2 focus:ring-teal-500 bg-white">
+                      <option value="Pagi (08:00 - 15:00)">Shift Pagi (08:00 - 15:00)</option>
+                      <option value="Sore (15:00 - 22:00)">Shift Sore (15:00 - 22:00)</option>
+                      <option value="Malam (22:00 - 08:00)">Shift Malam (22:00 - 08:00)</option>
+                      <option value="Non-Shift (Office Hours)">Non-Shift (09:00 - 17:00)</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="flex justify-end gap-3 mt-8 border-t pt-4">
+                  <button type="button" onClick={() => setShowKaryawanModal(false)} className="px-5 py-2 text-sm font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                  <button type="submit" className="px-6 py-2 text-sm text-white bg-teal-600 rounded-lg hover:bg-teal-700 font-bold shadow-sm">Simpan Karyawan</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* MODAL ABSENSI SUSULAN */}
+        {showAbsensiSusulanModal && (
+          <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden border-t-4 border-amber-400">
+              <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2"><Calendar size={20} className="text-amber-500"/> Input Absensi Susulan</h3>
+                <button onClick={() => setShowAbsensiSusulanModal(false)} className="text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
+              </div>
+              <form onSubmit={handleSimpanAbsensiSusulan} className="p-6">
+                <div className="bg-amber-50 text-amber-800 p-3 rounded-lg text-sm mb-5 border border-amber-200">
+                  Gunakan form ini jika Anda lupa menginput absensi harian, atau ingin merubah rekap bulanan karyawan tertentu.
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Absensi</label>
+                    <input type="date" required defaultValue={new Date().toISOString().split('T')[0]} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Pilih Karyawan</label>
+                    <select name="karyawan_id" required className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none bg-white">
+                      <option value="">-- Pilih Karyawan --</option>
+                      {karyawanData.map(k => (
+                        <option key={k.id} value={k.id}>{k.nama} ({k.posisi})</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Status Kehadiran</label>
+                    <select name="status" required className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none bg-white">
+                      <option value="Hadir">Hadir</option>
+                      <option value="Cuti">Cuti</option>
+                      <option value="Sakit">Sakit</option>
+                      <option value="Izin">Izin</option>
+                      <option value="Libur">Libur Off</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Tambahan Jam Lembur (Opsional)</label>
+                    <input name="lembur" type="number" min="0" placeholder="0" defaultValue="0" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-3 mt-8 border-t pt-4">
+                  <button type="button" onClick={() => setShowAbsensiSusulanModal(false)} className="px-5 py-2 text-sm font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                  <button type="submit" className="px-5 py-2 text-sm text-slate-900 bg-amber-400 rounded-lg hover:bg-amber-500 font-bold shadow-sm">Simpan Rekap</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* MODAL KEUANGAN */}
+        {showFinanceModal && (
+          <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden border-t-4 border-slate-500">
+              <div className={`p-5 flex justify-between items-center ${showFinanceModal === 'in' ? 'bg-teal-600' : 'bg-red-500'} text-white`}>
+                <h3 className="font-bold text-lg flex items-center gap-2">Catat {showFinanceModal === 'in' ? 'Pemasukan' : 'Pengeluaran'} Baru</h3>
+                <button onClick={() => setShowFinanceModal(null)} className="text-white/80 hover:text-white text-xl font-bold">&times;</button>
+              </div>
+              <form onSubmit={handleSimpanKeuangan} className="p-6">
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Transaksi</label>
+                    <input name="tanggal" type="date" required defaultValue={new Date().toISOString().split('T')[0]} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-slate-400 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-2">Pilih Kategori Transaksi</label>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                      {(showFinanceModal === 'in' ? listPemasukan : listPengeluaran).map(cat => (
+                        <label key={cat} className={`border rounded-lg p-2 text-center text-xs font-bold cursor-pointer transition ${kategoriKeuangan === cat ? (showFinanceModal === 'in' ? 'bg-teal-100 border-teal-500 text-teal-800' : 'bg-red-50 border-red-500 text-red-800') : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'}`}>
+                          <input type="radio" name="kategori_radio" value={cat} className="hidden" onChange={(e) => setKategoriKeuangan(e.target.value)} required />
+                          {cat}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* UPDATE DROPDOWN FINANCE: Menampilkan status antrian */}
+                  {showFinanceModal === 'in' && kategoriKeuangan === 'Pasien Periksa' && (
+                    <div className="bg-teal-50 p-3 rounded-lg border border-teal-200">
+                      <label className="block text-sm font-bold text-teal-800 mb-1">Pilih Pasien Hari Ini (Antrian)</label>
+                      <select name="pasien_periksa" required className="w-full border border-teal-300 rounded-lg p-2.5 text-sm outline-none bg-white">
+                        <option value="">-- Pilih Pasien dari Antrian --</option>
+                        {antrianData.map(a => (
+                          <option key={a.idAntrian} value={a.nama}>
+                            {a.nama} - {a.layanan} (Status: {a.status})
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nominal (Rp)</label>
+                    <input name="nominal" type="number" required placeholder="Contoh: 150000" className="w-full border rounded-lg p-3 text-lg font-bold focus:ring-2 focus:ring-slate-400 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Keterangan Singkat</label>
+                    <input name="keterangan" required placeholder="Catatan transaksi..." className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-slate-400 outline-none" />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-3 mt-8 border-t pt-5">
+                  <button type="button" onClick={() => setShowFinanceModal(null)} className="px-5 py-2.5 text-sm font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                  <button type="submit" className={`px-6 py-2.5 text-sm text-white rounded-lg font-bold shadow-sm ${showFinanceModal === 'in' ? 'bg-teal-600 hover:bg-teal-700' : 'bg-red-600 hover:bg-red-700'}`}>
+                    Simpan Transaksi
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* MODAL EDIT KEUANGAN */}
+        {editFinanceModal.isOpen && editFinanceModal.data && (
+          <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden border-t-4 border-blue-500">
+              <div className="p-5 flex justify-between items-center bg-slate-50">
+                <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2"><Edit size={20} className="text-blue-500"/> Edit Transaksi</h3>
+                <button onClick={() => setEditFinanceModal({isOpen: false, data: null})} className="text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
+              </div>
+              <form onSubmit={handleUpdateFinance} className="p-6">
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal</label>
+                    <input name="tanggal" type="date" required defaultValue={editFinanceModal.data.tanggal} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Kategori</label>
+                    <input name="kategori" required defaultValue={editFinanceModal.data.kategori} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nominal (Rp)</label>
+                    <input name="nominal" type="number" required defaultValue={editFinanceModal.data.nominal} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Keterangan</label>
+                    <input name="keterangan" required defaultValue={editFinanceModal.data.desc} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-3 mt-8 border-t pt-4">
+                  <button type="button" onClick={() => setEditFinanceModal({isOpen: false, data: null})} className="px-5 py-2 text-sm font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                  <button type="submit" className="px-5 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700 font-bold shadow-sm">Simpan Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* MODAL INPUT DATABASE LAMA */}
+        {showInputDatabaseModal && (
+          <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden border-t-4 border-amber-400">
+              <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2"><Database size={20} className="text-amber-500"/> Input Data Pasien Lama</h3>
+                <button onClick={() => setShowInputDatabaseModal(false)} className="text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
+              </div>
+              <form onSubmit={handleSimpanDatabaseLama} className="p-6">
+                <div className="bg-amber-50 text-amber-800 p-3 rounded-lg text-sm mb-6 border border-amber-200 flex items-start gap-2">
+                  <Database size={16} className="mt-0.5 shrink-0" />
+                  <p><strong>Catatan:</strong> Form ini digunakan untuk menyalin buku pasien lama ke dalam database. Pasien yang diinput lewat sini <strong>tidak</strong> akan masuk ke daftar Antrian Hari Ini.</p>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nama Pasien</label>
+                    <input name="nama" required className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">NIK KTP</label>
+                    <input name="nik" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nomor WA / HP</label>
+                    <input name="hp" placeholder="08xxxxxxxxxx" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nomor BPJS (Jika ada)</label>
+                    <input name="bpjs" placeholder="Kosongkan jika tidak ada" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+                  </div>
+                  <div className="col-span-2">
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Kunjungan Terakhir (Buku Manual)</label>
+                    <input name="last_visit" type="text" placeholder="Contoh: 10 Jan 2023 atau Data Lama" className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-3 mt-8 border-t pt-4">
+                  <button type="button" onClick={() => setShowInputDatabaseModal(false)} className="px-5 py-2 text-sm font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                  <button type="submit" className="px-5 py-2 text-sm text-slate-900 bg-amber-400 rounded-lg hover:bg-amber-500 font-bold shadow-sm">Simpan ke Database</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* MODAL EDIT DATA PASIEN (RM) */}
+        {editPasienModal.isOpen && editPasienModal.data && (
+          <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden border-t-4 border-blue-500">
+              <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2"><Edit size={20} className="text-blue-500"/> Update Data Pasien (RM)</h3>
+                <button onClick={() => setEditPasienModal({isOpen: false, data: null})} className="text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
+              </div>
+              <form onSubmit={handleUpdatePasien} className="p-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="col-span-2">
+                    <label className="block text-sm font-bold text-slate-700 mb-1">No. RM (Tidak bisa diubah)</label>
+                    <input readOnly value={editPasienModal.data.id} className="w-full border bg-slate-100 text-slate-500 rounded-lg p-2.5 text-sm outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nama Pasien</label>
+                    <input name="nama" required defaultValue={editPasienModal.data.nama} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">NIK KTP</label>
+                    <input name="nik" defaultValue={editPasienModal.data.nik} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nomor WA / HP</label>
+                    <input name="hp" defaultValue={editPasienModal.data.hp} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nomor BPJS</label>
+                    <input name="bpjs" defaultValue={editPasienModal.data.noBpjs !== '-' ? editPasienModal.data.noBpjs : ''} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-3 mt-8 border-t pt-4">
+                  <button type="button" onClick={() => setEditPasienModal({isOpen: false, data: null})} className="px-5 py-2 text-sm font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                  <button type="submit" className="px-5 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700 font-bold shadow-sm">Simpan Perubahan</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* MODAL PERIKSA / DIAGNOSA OWNER + INTEGRASI REMINDER */}
+        {showPeriksaModal.isOpen && showPeriksaModal.data && (
+           <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-3xl shadow-2xl overflow-hidden border-t-4 border-teal-500">
+              <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-teal-600 text-white">
+                <h3 className="font-bold text-lg flex items-center gap-2"><Stethoscope size={20}/> Pemeriksaan Medis</h3>
+                <button onClick={() => setShowPeriksaModal({ isOpen: false, data: null, source: 'antrian' })} className="text-white/80 hover:text-white text-2xl font-bold">&times;</button>
+              </div>
+              <div className="p-4 bg-teal-50 text-teal-900 text-sm flex justify-between font-medium border-b border-teal-100">
+                <span>Pasien: <strong className="font-extrabold">{showPeriksaModal.data.nama}</strong> ({showPeriksaModal.data.pasienId || showPeriksaModal.data.id})</span>
+                {showPeriksaModal.source === 'antrian' && <span>Layanan: <strong className="font-extrabold">{showPeriksaModal.data.layanan}</strong></span>}
+              </div>
+              <form onSubmit={handleSimpanDiagnosa} className="p-6 max-h-[70vh] overflow-y-auto">
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Hasil Analisa / Pemeriksaan</label>
+                    <textarea 
+                      name="analisa" 
+                      rows="3" 
+                      defaultValue={showPeriksaModal.data.analisa || ''}
+                      placeholder="Catat keluhan, tensi darah, suhu, dan hasil observasi di sini..." 
+                      className="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-teal-500 outline-none"
+                    ></textarea>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Diagnosa & Tindakan Medis</label>
+                    <textarea 
+                      name="diagnosa" 
+                      rows="3" 
+                      defaultValue={showPeriksaModal.data.diagnosa || ''}
+                      placeholder="ICD-10, tindakan yang diberikan, serta resep obat..." 
+                      className="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-teal-500 outline-none"
+                    ></textarea>
+                  </div>
+                  
+                  {/* Integrasi Reminder Kontrol */}
+                  <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 mt-6">
+                    <h4 className="font-bold text-amber-800 mb-3 flex items-center gap-2 border-b border-amber-200 pb-2">
+                      <Calendar size={18}/> Penjadwalan Kontrol (Otomatis Masuk Reminder CS)
+                    </h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-bold text-amber-900 mb-1">Tanggal Kontrol Berikutnya</label>
+                        <input name="tgl_kembali" type="date" className="w-full border border-amber-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-500 outline-none bg-white" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-amber-900 mb-1">Keperluan Kontrol</label>
+                        <input name="keperluan" placeholder="Misal: Periksa Jahitan / Ambil Obat" className="w-full border border-amber-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-500 outline-none bg-white" />
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div className="flex justify-end gap-3 mt-8">
+                  <button type="button" onClick={() => setShowPeriksaModal({ isOpen: false, data: null, source: 'antrian' })} className="px-5 py-2 text-sm font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Tutup / Batal</button>
+                  <button type="submit" className="px-6 py-2 text-sm text-white bg-teal-600 rounded-lg hover:bg-teal-700 font-bold shadow-sm">Simpan Rekam Medis</button>
+                </div>
+              </form>
+            </div>
+           </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* MODAL EDIT REMINDER PASIEN */}
+        {editReminderModal.isOpen && editReminderModal.data && (
+          <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden border-t-4 border-amber-400">
+              <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2"><Edit size={20} className="text-amber-500"/> Update Reminder Pasien</h3>
+                <button onClick={() => setEditReminderModal({isOpen: false, data: null})} className="text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
+              </div>
+              <form onSubmit={handleUpdateReminder} className="p-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="col-span-2">
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nama Pasien</label>
+                    <input name="nama" required defaultValue={editReminderModal.data.nama} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal/Waktu Kontrol</label>
+                    <input name="waktu" required defaultValue={editReminderModal.data.waktu} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Keperluan / Layanan</label>
+                    <input name="jenis" required defaultValue={editReminderModal.data.jenis} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Nomor WA Pasien</label>
+                    <input name="noWa" required defaultValue={editReminderModal.data.noWa} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Status Reminder</label>
+                    <select name="status" defaultValue={editReminderModal.data.status} className="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-400 outline-none bg-white">
+                      <option value="Belum Dihubungi">Belum Dihubungi</option>
+                      <option value="Sudah Dihubungi">Sudah Dihubungi</option>
+                      <option value="Dibatalkan">Dibatalkan</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="flex justify-end gap-3 mt-8 border-t pt-4">
+                  <button type="button" onClick={() => setEditReminderModal({isOpen: false, data: null})} className="px-5 py-2 text-sm font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                  <button type="submit" className="px-5 py-2 text-sm text-slate-900 bg-amber-400 rounded-lg hover:bg-amber-500 font-bold shadow-sm">Simpan Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* MODAL PASIEN LAMA (Masuk Antrian Hari Ini) */}
+        {showPasienLamaModal && (
+          <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden border-t-4 border-blue-500">
+              <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-blue-50">
+                <h3 className="font-bold text-lg text-blue-800 flex items-center gap-2"><ClipboardList size={20}/> Kunjungan Pasien Lama</h3>
+                <button onClick={() => setShowPasienLamaModal(false)} className="text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
+              </div>
+              <form onSubmit={handleSimpanPasienLama} className="p-6">
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Cari Pasien dari Database</label>
+                    <select name="pasien_id" required className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                      <option value="">-- Pilih Pasien --</option>
+                      {pasienData.map(p => (
+                        <option key={p.id} value={p.id}>{p.id} - {p.nama} (WA: {p.hp})</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Layanan Tujuan Hari Ini</label>
+                    <select name="layanan" required className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                        <option value="Pemeriksaan Umum">Pemeriksaan Umum</option>
+                        <option value="Pemeriksaan Kehamilan (ANC)">Pemeriksaan Kehamilan (ANC)</option>
+                        <option value="Persalinan (Partus)">Persalinan (Partus)</option>
+                        <option value="Nifas (PNC)">Nifas (PNC)</option>
+                        <option value="Keluarga Berencana (KB)">Keluarga Berencana (KB)</option>
+                        <option value="Imunisasi / Anak">Imunisasi / Anak</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="flex justify-end gap-3 mt-8">
+                  <button type="button" onClick={() => setShowPasienLamaModal(false)} className="px-5 py-2 text-sm font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                  <button type="submit" className="px-5 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700 font-bold shadow-sm">Masukkan ke Antrian</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* MODAL PASIEN BARU */}
+        {showPasienModal && (
+          <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 overflow-y-auto">
+            <div className="bg-white rounded-2xl w-full max-w-5xl shadow-2xl overflow-hidden my-8 border-t-4 border-teal-500">
+              <div className="p-6 border-b border-slate-100 flex justify-between items-start bg-slate-50">
+                <div>
+                  <h2 className="text-2xl font-extrabold text-teal-800">Pendaftaran Pasien Baru</h2>
+                  <p className="text-slate-500 text-sm mt-1">Isi formulir pendaftaran. Data otomatis masuk ke Database & Antrian Hari Ini.</p>
+                </div>
+                <button onClick={() => setShowPasienModal(false)} className="text-slate-400 hover:text-red-500 text-2xl font-bold">&times;</button>
+              </div>
+
+              <form onSubmit={handleSimpanPasienBaru}>
+                <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* KOLOM KIRI: Identitas Pasien */}
+                  <div className="space-y-4">
+                    <h3 className="flex items-center gap-2 font-bold text-teal-700 text-lg border-b border-teal-100 pb-2 mb-4">
+                      <Users size={20} /> Identitas Pasien
+                    </h3>
+                    
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">NIK / Nomor KTP <span className="text-red-500">*</span></label>
+                      <input name="nik" required placeholder="Nomor identitas (16 digit)" className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Nama Lengkap Pasien <span className="text-red-500">*</span></label>
+                      <input name="nama" required placeholder="Nama lengkap pasien" className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Nama Suami / Kepala Keluarga <span className="text-red-500">*</span></label>
+                      <input name="kk" required placeholder="Nama suami atau kepala keluarga" className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Lahir</label>
+                        <input type="date" name="tgl_lahir" value={dobInput} onChange={(e) => setDobInput(e.target.value)} className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-slate-700 mb-1">Usia (Otomatis)</label>
+                        <input readOnly value={calculatedAge} placeholder="Hitung otomatis" className="w-full border border-slate-200 bg-slate-50 text-slate-500 rounded-lg p-2.5 text-sm outline-none" />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Nomor HP / WhatsApp</label>
+                      <input name="hp" placeholder="08xxxxxxxxxx" className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Alamat Lengkap</label>
+                      <textarea name="alamat" rows="2" placeholder="Alamat lengkap pasien" className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none"></textarea>
+                    </div>
+                  </div>
+
+                  {/* KOLOM KANAN: Data Kunjungan */}
+                  <div className="space-y-4">
+                    <h3 className="flex items-center gap-2 font-bold text-teal-700 text-lg border-b border-teal-100 pb-2 mb-4">
+                      <FileText size={20} /> Data Kunjungan
+                    </h3>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Layanan Tujuan <span className="text-red-500">*</span></label>
+                      <select name="layanan" required className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                        <option value="">Pilih Layanan</option>
+                        <option value="Pemeriksaan Umum">Pemeriksaan Umum</option>
+                        <option value="Pemeriksaan Kehamilan (ANC)">Pemeriksaan Kehamilan (ANC)</option>
+                        <option value="Persalinan (Partus)">Persalinan (Partus)</option>
+                        <option value="Nifas (PNC)">Nifas (PNC)</option>
+                        <option value="Keluarga Berencana (KB)">Keluarga Berencana (KB)</option>
+                        <option value="Imunisasi / Anak">Imunisasi / Anak</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Cara Bayar</label>
+                      <select name="cara_bayar" className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white">
+                        <option value="Umum / Mandiri">Pilih Cara Bayar</option>
+                        <option value="Umum / Mandiri">Umum / Mandiri</option>
+                        <option value="BPJS">BPJS</option>
+                        <option value="Jampersal">Jampersal</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-1">Keluhan Utama</label>
+                      <textarea name="keluhan" rows="2" placeholder="Keluhan atau alasan kunjungan" className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none"></textarea>
+                    </div>
+
+                    <div className="bg-teal-50 border border-teal-100 rounded-lg p-4 mt-2">
+                      <h4 className="flex items-center gap-2 text-sm font-bold text-teal-800 mb-3">
+                        <Activity size={16} /> Pemeriksaan Awal (Opsional)
+                      </h4>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-bold text-slate-700 mb-1">Berat Badan (Kg)</label>
+                          <input name="bb" placeholder="Contoh: 65" className="w-full border border-slate-300 rounded-md p-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white" />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold text-slate-700 mb-1">Tekanan Darah</label>
+                          <input name="tensi" placeholder="Contoh: 120/80" className="w-full border border-slate-300 rounded-md p-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none bg-white" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-6 bg-slate-50 border-t border-slate-100 flex justify-end gap-3">
+                  <button type="button" onClick={() => setShowPasienModal(false)} className="px-6 py-2.5 text-sm font-bold text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-100 transition">Batal</button>
+                  <button type="submit" className="px-8 py-2.5 text-sm text-white bg-teal-600 rounded-lg hover:bg-teal-700 font-bold flex items-center gap-2 shadow-sm transition">
+                    Simpan & Masuk Antrian
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+        
+      </div>
+    </div>
+  );
+};
+
+export default function App() {
+  const [user, setUser] = useState(null);
+  const [usersData, setUsersData] = useState(initialUsers);
+
+  // LIFTED STATE: Memori sementara dipindah ke sini agar tidak hilang saat berganti akun login (logout/login)
+  const [pasienData, setPasienData] = useState([
+    { id: "RM001", nama: "Budi Santoso", nik: "357123", hp: "08123456789", noBpjs: "000123", bpjs: true, satuSehat: true, lastVisit: "12 Okt 2023" },
+    { id: "RM002", nama: "Siti Aminah", nik: "317456", hp: "08198765432", noBpjs: "-", bpjs: false, satuSehat: true, lastVisit: "15 Okt 2023" },
+  ]);
+
+  const [antrianData, setAntrianData] = useState([
+    { idAntrian: "A-001", pasienId: "RM001", nama: "Budi Santoso", layanan: "Pemeriksaan Umum", status: "Menunggu", diagnosa: "", analisa: "" },
+  ]);
+
+  const [karyawanData, setKaryawanData] = useState([
+    { id: 1, nama: "Dr. Tirta", posisi: "Dokter Umum", jadwal: "Pagi (08:00 - 15:00)", statusAbsen: "Hadir", kontak: "0812xxx", hadirTotal: 22, liburTotal: 4, cutiTotal: 0, lemburJam: 12 },
+    { id: 2, nama: "Suster Rini", posisi: "Perawat", jadwal: "Pagi (08:00 - 15:00)", statusAbsen: "Cuti", kontak: "0813xxx", hadirTotal: 20, liburTotal: 4, cutiTotal: 2, lemburJam: 5 },
+    { id: 3, nama: "Siska", posisi: "Customer Service", jadwal: "Sore (15:00 - 22:00)", statusAbsen: "Hadir", kontak: "0819xxx", hadirTotal: 24, liburTotal: 2, cutiTotal: 0, lemburJam: 2 },
+  ]);
+
+  const [financeTransactions, setFinanceTransactions] = useState([
+    { id: 1, tanggal: new Date().toLocaleDateString('id-ID'), jenis: "Masuk", kategori: "Pasien Periksa", nominal: 1500000, desc: "Pemasukan shift pagi" },
+  ]);
+
+  const [reminderData, setReminderData] = useState([
+    { id: 1, nama: "Dewi Lestari", jenis: "Kontrol Behel", waktu: "Besok, 10:00", noWa: "081234567890", status: "Belum Dihubungi" },
+  ]);
+
+  const [laporanData, setLaporanData] = useState({
+    lap_anc: [], lap_partus: [], lap_bidan: [], lap_dokter: [], lap_kecantikan: [], lap_shk: [], lap_imunisasi: [], lap_kb: []
+  });
+
+  return (
+    <>
+      {user ? (
+        <Dashboard 
+          user={user} 
+          usersData={usersData} 
+          setUsersData={setUsersData} 
+          onLogout={() => setUser(null)} 
+          
+          // Melempar semua data ke dalam Dashboard
+          pasienData={pasienData} setPasienData={setPasienData}
+          antrianData={antrianData} setAntrianData={setAntrianData}
+          karyawanData={karyawanData} setKaryawanData={setKaryawanData}
+          financeTransactions={financeTransactions} setFinanceTransactions={setFinanceTransactions}
+          reminderData={reminderData} setReminderData={setReminderData}
+          laporanData={laporanData} setLaporanData={setLaporanData}
+        />
+      ) : (
+        <LandingPage onLogin={(userData) => setUser(userData)} users={usersData} />
+      )}
+    </>
+  );
+}
