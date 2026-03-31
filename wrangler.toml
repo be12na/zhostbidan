@@ -1,0 +1,25 @@
+name = "zhostbidan"
+main = "worker/index.ts"
+compatibility_date = "2026-03-31"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = ["/api/*"]
+
+[limits]
+cpu_ms = 30000
+subrequests = 50
+
+[vars]
+APP_ENV = "production"
+ALLOWED_ORIGIN = "bidan.zhost.digital"
+API_TIMEOUT_MS = "15000"
+GAS_BASE_URL = "https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec"
+
+[env.staging.vars]
+APP_ENV = "staging"
+ALLOWED_ORIGIN = "bidan.zhost.digital"
+API_TIMEOUT_MS = "15000"
+GAS_BASE_URL = "https://script.google.com/macros/s/REPLACE_WITH_STAGING_DEPLOYMENT_ID/exec"
