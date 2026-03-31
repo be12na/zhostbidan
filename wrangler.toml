@@ -13,5 +13,6 @@ run_worker_first = ["/api/*"]
 
 [vars]
 APP_ENV = "production"
-ALLOWED_ORIGIN = "bidan.zhost.digital"
-GAS_BASE_URL = "https://script.google.com/macros/s/7dea9bce-58ed-4ff6-b0ed-351205f09dae/exec"
+ALLOWED_ORIGIN = "zhostbidan.magicsoapid.workers.dev"
+GAS_BASE_URL = "https://script.google.com/macros/s/AKfycbyTIhK1x1YzvW-ihk0BAjIBF4gkVqVBh2gDqE2IFc1Uy7RR4Re4KQFaRvIQZI2tMyt3uw/exec"
+API_TIMEOUT_MS = "30000"

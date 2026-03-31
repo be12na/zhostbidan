@@ -66,9 +66,9 @@ async function handleApiProxy(request: Request, env: Env) {
   }
 
   const upstreamURL = buildUpstreamURL(request, env)
-  const timeoutMs = Number(env.API_TIMEOUT_MS || '15000')
+  const timeoutMs = Number(env.API_TIMEOUT_MS || '30000')
   const abortController = new AbortController()
-  const timer = setTimeout(() => abortController.abort(), Number.isFinite(timeoutMs) ? timeoutMs : 15000)
+  const timer = setTimeout(() => abortController.abort(), Number.isFinite(timeoutMs) ? timeoutMs : 30000)
 
   try {
     const forwardedHeaders: HeadersInit = {

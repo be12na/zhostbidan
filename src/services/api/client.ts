@@ -1,6 +1,6 @@
 import type { ApiEnvelope } from '../../types/domain'
 
-const DEFAULT_TIMEOUT = 15000
+const DEFAULT_TIMEOUT = resolveTimeout(import.meta.env.VITE_API_TIMEOUT_MS)
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api/proxy'
 
@@ -10,6 +10,14 @@ interface RequestOptions {
   action: string
   filters?: Record<string, string | number | undefined>
   payload?: Record<string, string | number | boolean | undefined>
+}
+
+function resolveTimeout(rawValue: string | undefined) {
+  const parsed = Number(rawValue ?? '30000')
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    return 30000
+  }
+  return parsed
 }
 
 function toSearchParams(filters?: Record<string, string | number | undefined>) {
