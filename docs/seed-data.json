@@ -1,0 +1,21 @@
+{
+  "users": [
+    { "user_id": "usr_owner_01", "nama": "Pemilik Klinik", "email": "owner@klinikmaju.id", "role": "pemilik", "status": "aktif" },
+    { "user_id": "usr_admin_01", "nama": "Admin Klinik", "email": "admin@klinikmaju.id", "role": "admin_klinik", "status": "aktif" },
+    { "user_id": "usr_cs_01", "nama": "CS Klinik", "email": "cs@klinikmaju.id", "role": "cs", "status": "aktif" },
+    { "user_id": "usr_keu_01", "nama": "Staff Keuangan", "email": "finance@klinikmaju.id", "role": "keuangan", "status": "aktif" },
+    { "user_id": "usr_medis_01", "nama": "Bidan Jaga", "email": "medis@klinikmaju.id", "role": "medis", "status": "aktif" }
+  ],
+  "patients": [
+    { "pasien_id": "pas_0001", "no_rm": "RM-20260331-0001", "nama": "Aisyah Putri", "nik": "3174000000000001", "hp": "081234567890", "status_bpjs": "Aktif" },
+    { "pasien_id": "pas_0002", "no_rm": "RM-20260331-0002", "nama": "Rina Lestari", "nik": "3273000000000002", "hp": "082112223334", "status_bpjs": "Tidak Aktif" }
+  ],
+  "queue": [
+    { "id_antrian": "antri_0001", "tanggal": "2026-03-31", "pasien_id": "pas_0001", "nama_pasien": "Aisyah Putri", "layanan": "ANC", "status": "Menunggu" },
+    { "id_antrian": "antri_0002", "tanggal": "2026-03-31", "pasien_id": "pas_0002", "nama_pasien": "Rina Lestari", "layanan": "Pemeriksaan Umum", "status": "Diperiksa" }
+  ],
+  "finance": [
+    { "transaksi_id": "trx_0001", "tanggal": "2026-03-31", "jenis": "Masuk", "kategori": "Pasien Periksa", "nominal": 350000, "keterangan": "Pemeriksaan ANC" },
+    { "transaksi_id": "trx_0002", "tanggal": "2026-03-31", "jenis": "Keluar", "kategori": "Beli Obat / Farmasi", "nominal": 120000, "keterangan": "Restock vitamin" }
+  ]
+}
