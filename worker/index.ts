@@ -150,6 +150,16 @@ function isAllowedOrigin(request: Request, env: Env) {
   const origin = request.headers.get('Origin')
   if (!origin) return true
 
+  try {
+    const incomingOrigin = new URL(origin)
+    const requestOrigin = new URL(request.url)
+    if (incomingOrigin.origin === requestOrigin.origin) {
+      return true
+    }
+  } catch {
+    return false
+  }
+
   const allowedList = configured
     .split(',')
     .map((item) => item.trim())
