@@ -2,6 +2,9 @@ name = "zhostbidan"
 main = "worker/index.ts"
 compatibility_date = "2026-03-31"
 
+[build]
+command = "npm run build"
+
 [assets]
 directory = "./dist"
 binding = "ASSETS"

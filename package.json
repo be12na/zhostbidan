@@ -8,9 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint src functions worker",
     "preview": "vite preview",
-    "worker:dev": "npm run build && wrangler dev",
-    "worker:deploy": "npm run build && wrangler deploy",
-    "worker:check": "npm run build && wrangler deploy --dry-run"
+    "worker:dev": "wrangler dev",
+    "worker:deploy": "wrangler deploy",
+    "worker:check": "wrangler deploy --dry-run"
   },
   "dependencies": {
     "react": "^19.2.4",
