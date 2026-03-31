@@ -51,4 +51,19 @@ const Content = {
     Utils.writeAuditLog('update', 'content', 'system', { type: type, id: payload.id });
     return Response.build(true, 'Konten berhasil diperbarui', payload);
   },
+
+  delete: function (request) {
+    const payload = request.payload || {};
+    const type = Utils.sanitizeText(payload.type).toLowerCase();
+    Validators.requireFields({ type: type, id: payload.id }, ['type', 'id']);
+
+    const sheetName = CONTENT_SHEET_BY_TYPE[type];
+    if (!sheetName) {
+      throw new Error('Jenis konten tidak didukung: ' + type);
+    }
+
+    Utils.deleteById(sheetName, 'id', payload.id);
+    Utils.writeAuditLog('delete', 'content', 'system', { type: type, id: payload.id });
+    return Response.build(true, 'Konten berhasil dihapus', { type: type, id: payload.id });
+  },
 };

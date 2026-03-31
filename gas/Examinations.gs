@@ -42,4 +42,12 @@ const Examinations = {
     Utils.writeAuditLog('update', 'examinations', 'system', payload);
     return Response.build(true, 'Pemeriksaan berhasil diperbarui', payload);
   },
+
+  delete: function (request) {
+    const payload = request.payload || {};
+    Validators.requireFields(payload, ['pemeriksaan_id']);
+    Utils.deleteById(GAS_CONFIG.SHEETS.EXAMINATIONS, 'pemeriksaan_id', payload.pemeriksaan_id);
+    Utils.writeAuditLog('delete', 'examinations', 'system', { pemeriksaan_id: payload.pemeriksaan_id });
+    return Response.build(true, 'Pemeriksaan berhasil dihapus', { pemeriksaan_id: payload.pemeriksaan_id });
+  },
 };

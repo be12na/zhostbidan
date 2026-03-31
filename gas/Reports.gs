@@ -45,4 +45,19 @@ const Reports = {
     Utils.writeAuditLog('update', 'reports', 'system', { type: type, id: payload.id });
     return Response.build(true, 'Laporan berhasil diperbarui', payload);
   },
+
+  delete: function (request) {
+    const payload = request.payload || {};
+    const type = Utils.sanitizeText(payload.type).toLowerCase();
+    Validators.requireFields({ type: type, id: payload.id }, ['type', 'id']);
+
+    const sheetName = REPORT_SHEET_BY_TYPE[type];
+    if (!sheetName) {
+      throw new Error('Jenis laporan tidak didukung: ' + type);
+    }
+
+    Utils.deleteById(sheetName, 'id', payload.id);
+    Utils.writeAuditLog('delete', 'reports', 'system', { type: type, id: payload.id });
+    return Response.build(true, 'Laporan berhasil dihapus', { type: type, id: payload.id });
+  },
 };

@@ -45,4 +45,12 @@ const Queue = {
     Utils.writeAuditLog('update', 'queue', 'system', payload);
     return Response.build(true, 'Antrian berhasil diperbarui', payload);
   },
+
+  delete: function (request) {
+    const payload = request.payload || {};
+    Validators.requireFields(payload, ['id_antrian']);
+    Utils.deleteById(GAS_CONFIG.SHEETS.QUEUE, 'id_antrian', payload.id_antrian);
+    Utils.writeAuditLog('delete', 'queue', 'system', { id_antrian: payload.id_antrian });
+    return Response.build(true, 'Antrian berhasil dihapus', { id_antrian: payload.id_antrian });
+  },
 };

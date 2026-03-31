@@ -4,6 +4,7 @@ interface ResourceService<TItem, TCreate, TUpdate, TFilter extends Record<string
   list: (filters?: TFilter) => Promise<TItem[]>
   create: (payload: TCreate) => Promise<TItem>
   update: (payload: TUpdate) => Promise<TItem>
+  remove: (payload: Partial<TUpdate>) => Promise<TItem>
 }
 
 export function useResource<TItem, TCreate, TUpdate, TFilter extends Record<string, string | number | undefined> = Record<string, string | number | undefined>>(
@@ -46,9 +47,17 @@ export function useResource<TItem, TCreate, TUpdate, TFilter extends Record<stri
     [service, refresh],
   )
 
+  const remove = useCallback(
+    async (payload: Partial<TUpdate>) => {
+      await service.remove(payload)
+      await refresh()
+    },
+    [service, refresh],
+  )
+
   useEffect(() => {
     void refresh(initialFilter)
   }, [initialFilter, refresh])
 
-  return { items, loading, error, refresh, create, update }
+  return { items, loading, error, refresh, create, update, remove }
 }

@@ -46,4 +46,12 @@ const Finance = {
     Utils.writeAuditLog('update', 'finance', 'system', payload);
     return Response.build(true, 'Transaksi berhasil diperbarui', payload);
   },
+
+  delete: function (request) {
+    const payload = request.payload || {};
+    Validators.requireFields(payload, ['transaksi_id']);
+    Utils.deleteById(GAS_CONFIG.SHEETS.FINANCE, 'transaksi_id', payload.transaksi_id);
+    Utils.writeAuditLog('delete', 'finance', 'system', { transaksi_id: payload.transaksi_id });
+    return Response.build(true, 'Transaksi berhasil dihapus', { transaksi_id: payload.transaksi_id });
+  },
 };

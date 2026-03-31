@@ -41,4 +41,12 @@ const Reminders = {
     Utils.writeAuditLog('update', 'reminders', 'system', payload);
     return Response.build(true, 'Reminder berhasil diperbarui', payload);
   },
+
+  delete: function (request) {
+    const payload = request.payload || {};
+    Validators.requireFields(payload, ['reminder_id']);
+    Utils.deleteById(GAS_CONFIG.SHEETS.REMINDERS, 'reminder_id', payload.reminder_id);
+    Utils.writeAuditLog('delete', 'reminders', 'system', { reminder_id: payload.reminder_id });
+    return Response.build(true, 'Reminder berhasil dihapus', { reminder_id: payload.reminder_id });
+  },
 };

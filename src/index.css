@@ -60,6 +60,11 @@ button {
   color: #0f172a;
 }
 
+.btn-danger {
+  background: #dc2626;
+  color: #fff;
+}
+
 .btn-ghost {
   background: transparent;
   color: #334155;
@@ -225,6 +230,19 @@ button {
 .error-text {
   color: #b91c1c;
   margin: 0;
+}
+
+.success-text {
+  color: #065f46;
+  margin: 0;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .form-stack {

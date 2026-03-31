@@ -54,4 +54,12 @@ const Patients = {
     Utils.writeAuditLog('update', 'patients', 'system', payload);
     return Response.build(true, 'Pasien berhasil diperbarui', payload);
   },
+
+  delete: function (request) {
+    const payload = request.payload || {};
+    Validators.requireFields(payload, ['pasien_id']);
+    Utils.deleteById(GAS_CONFIG.SHEETS.PATIENTS, 'pasien_id', payload.pasien_id);
+    Utils.writeAuditLog('delete', 'patients', 'system', { pasien_id: payload.pasien_id });
+    return Response.build(true, 'Pasien berhasil dihapus', { pasien_id: payload.pasien_id });
+  },
 };

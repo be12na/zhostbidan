@@ -37,4 +37,12 @@ const Employees = {
     Utils.writeAuditLog('update', 'employees', 'system', payload);
     return Response.build(true, 'Karyawan berhasil diperbarui', payload);
   },
+
+  delete: function (request) {
+    const payload = request.payload || {};
+    Validators.requireFields(payload, ['karyawan_id']);
+    Utils.deleteById(GAS_CONFIG.SHEETS.EMPLOYEES, 'karyawan_id', payload.karyawan_id);
+    Utils.writeAuditLog('delete', 'employees', 'system', { karyawan_id: payload.karyawan_id });
+    return Response.build(true, 'Karyawan berhasil dihapus', { karyawan_id: payload.karyawan_id });
+  },
 };

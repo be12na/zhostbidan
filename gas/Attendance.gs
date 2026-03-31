@@ -38,4 +38,12 @@ const Attendance = {
     Utils.writeAuditLog('update', 'attendance', 'system', payload);
     return Response.build(true, 'Absensi berhasil diperbarui', payload);
   },
+
+  delete: function (request) {
+    const payload = request.payload || {};
+    Validators.requireFields(payload, ['absensi_id']);
+    Utils.deleteById(GAS_CONFIG.SHEETS.ATTENDANCE, 'absensi_id', payload.absensi_id);
+    Utils.writeAuditLog('delete', 'attendance', 'system', { absensi_id: payload.absensi_id });
+    return Response.build(true, 'Absensi berhasil dihapus', { absensi_id: payload.absensi_id });
+  },
 };

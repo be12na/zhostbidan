@@ -94,6 +94,40 @@ const Utils = {
     return payload;
   },
 
+  deleteById: function (sheetName, idField, idValue) {
+    const sheet = this.getSheet(sheetName);
+    const values = sheet.getDataRange().getValues();
+    if (values.length <= 1) {
+      throw new Error('Data kosong pada sheet ' + sheetName);
+    }
+
+    const headers = values[0].map(function (h) {
+      return String(h).trim();
+    });
+    const idColumnIndex = headers.indexOf(idField);
+    if (idColumnIndex < 0) {
+      throw new Error('Kolom id tidak ditemukan: ' + idField);
+    }
+
+    const targetRowIndex = values.findIndex(function (row, index) {
+      if (index === 0) return false;
+      return String(row[idColumnIndex]) === String(idValue);
+    });
+
+    if (targetRowIndex < 0) {
+      throw new Error(idField + ' tidak ditemukan: ' + idValue);
+    }
+
+    const rowValues = values[targetRowIndex];
+    const deleted = {};
+    headers.forEach(function (header, idx) {
+      deleted[header] = rowValues[idx];
+    });
+
+    sheet.deleteRow(targetRowIndex + 1);
+    return deleted;
+  },
+
   filterRows: function (rows, criteria) {
     if (!criteria) return rows;
 

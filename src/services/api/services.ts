@@ -27,7 +27,7 @@ export const patientsService = createResourceService<
 export const queueService = createResourceService<
   QueueItem,
   Pick<QueueItem, 'tanggal' | 'pasien_id' | 'layanan' | 'status'>,
-  Pick<QueueItem, 'id_antrian' | 'status' | 'diagnosa_ringkas' | 'analisa_ringkas'>
+  Partial<QueueItem>
 >('queue')
 
 export const examinationsService = createResourceService<
@@ -74,6 +74,7 @@ export const reportsService = {
     apiClient.post<ReportRecord>('reports', 'create', { type, ...payload }),
   update: (type: string, payload: Record<string, string | number | boolean | undefined>) =>
     apiClient.post<ReportRecord>('reports', 'update', { type, ...payload }),
+  remove: (type: string, id: string) => apiClient.post<ReportRecord>('reports', 'delete', { type, id }),
 }
 
 export const contentService = {
@@ -82,4 +83,5 @@ export const contentService = {
     apiClient.post<ContentRecord>('content', 'create', { type, ...payload }),
   update: (type: string, payload: Record<string, string | number | boolean | undefined>) =>
     apiClient.post<ContentRecord>('content', 'update', { type, ...payload }),
+  remove: (type: string, id: string) => apiClient.post<ContentRecord>('content', 'delete', { type, id }),
 }

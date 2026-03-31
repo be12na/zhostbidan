@@ -43,4 +43,26 @@ const Users = {
     Utils.writeAuditLog('update', 'users', 'system', payload);
     return Response.build(true, 'User berhasil diperbarui', payload);
   },
+
+  delete: function (request) {
+    const payload = request.payload || {};
+    Validators.requireFields(payload, ['user_id']);
+
+    const users = Utils.readRows(GAS_CONFIG.SHEETS.USERS);
+    const existing = users.find(function (item) {
+      return String(item.user_id) === String(payload.user_id);
+    });
+
+    if (!existing) {
+      throw new Error('User tidak ditemukan');
+    }
+
+    if (String(existing.role) === 'pemilik') {
+      throw new Error('Akun pemilik tidak dapat dihapus');
+    }
+
+    Utils.deleteById(GAS_CONFIG.SHEETS.USERS, 'user_id', payload.user_id);
+    Utils.writeAuditLog('delete', 'users', 'system', { user_id: payload.user_id });
+    return Response.build(true, 'User berhasil dihapus', { user_id: payload.user_id });
+  },
 };
